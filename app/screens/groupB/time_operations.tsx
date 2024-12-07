@@ -2,33 +2,31 @@ import { router } from "expo-router";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function Whiteboard_MathOperation_Screen() {
+export default function Basic_Time_Operation_Screen() {
   const handleBackButtonPress = () => {
-    router.push("/screens/group_A_Home");
+    router.push("/screens/group_B_Home");
   };
 
-  const additionButtonPress = () => {
-    router.push("/screens/addition_whitboard");
+  const timeTeachButtonPress = () => {
+    router.push("/screens/groupB/time_teaching");
   };
 
-  const substractButtonPress = () => {
-    router.push("/screens/substraction_whiteboard");
+  const tellTimeButtonPress = () => {
+    router.push("/screens/groupB/time_tell_quiz");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Select Operation!</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => additionButtonPress()}
-      >
-        <Text style={styles.buttonText}>Additions (+)</Text>
+
+      <TouchableOpacity style={styles.button} onPress={timeTeachButtonPress}>
+        <Text style={styles.buttonText}>Learn How To Tell Time </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => substractButtonPress()}
+        onPress={() => tellTimeButtonPress()}
       >
-        <Text style={styles.buttonText}>Substractions (-)</Text>
+        <Text style={styles.buttonText}>Tell Time</Text>
       </TouchableOpacity>
 
       <TouchableOpacity

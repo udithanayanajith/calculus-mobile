@@ -218,6 +218,7 @@ const RandomNumberVoiceRecorder: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("beforeRemove", () => {
+      setIsPlaying(false);
       stopRandomNumbersAndRecording();
       stopPlaying();
     });
@@ -233,7 +234,10 @@ const RandomNumberVoiceRecorder: React.FC = () => {
     }
   };
   const handleHomeButtonPress = () => {
-    router.push("/screens/record_your_counting");
+    setIsPlaying(false);
+    stopRandomNumbersAndRecording();
+    stopPlaying();
+    router.push("/screens/groupA/record_your_counting");
   };
 
   return (

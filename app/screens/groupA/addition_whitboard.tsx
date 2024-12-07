@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Signature, { SignatureViewRef } from "react-native-signature-canvas";
 
-const SubstractionQuizScreen: React.FC = () => {
+const AdditionQuizScreen: React.FC = () => {
   const additionMathQuizRef = useRef<SignatureViewRef>(null);
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<number | null>(null);
@@ -24,9 +24,9 @@ const SubstractionQuizScreen: React.FC = () => {
   // Function to generate a random addition question where the sum does not exceed 20
   const generateQuestion = () => {
     const num1 = Math.floor(Math.random() * 21); // Random number between 0 and 20
-    const num2 = Math.floor(Math.random() * (num1 + 1)); // Random number between 0 and num1
-    setQuestion(`${num1} - ${num2} = ?`);
-    setAnswer(num1 - num2);
+    const num2 = Math.floor(Math.random() * (21 - num1)); // Ensure the sum does not exceed 20
+    setQuestion(`${num1} + ${num2} = ?`);
+    setAnswer(num1 + num2);
   };
 
   const handleSignatureSave = async (
@@ -95,7 +95,7 @@ const SubstractionQuizScreen: React.FC = () => {
   };
 
   const handleBackButtonPress = () => {
-    router.push("/screens/whiteboard_operation_check");
+    router.push("/screens/groupA/whiteboard_operation_check");
   };
 
   const calculateGrade = () => {
@@ -181,7 +181,7 @@ const SubstractionQuizScreen: React.FC = () => {
   );
 };
 
-export default SubstractionQuizScreen;
+export default AdditionQuizScreen;
 
 const styles = StyleSheet.create({
   container: {

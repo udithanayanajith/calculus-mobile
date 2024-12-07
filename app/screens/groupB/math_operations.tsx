@@ -4,17 +4,23 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function Basic_MathOperation_Screen() {
   const handleBackButtonPress = () => {
-    router.push("/screens/group_A_Home");
+    router.push("/screens/group_B_Home");
   };
 
   const additionButtonPress = () => {
-    router.push("/screens/addition_teching");
+    router.push("/screens/groupB/addition_teching");
   };
 
   const substractButtonPress = () => {
-    router.push("/screens/substraction_teaching");
+    router.push("/screens/groupB/substraction_teaching");
   };
 
+  const divisionButtonPress = () => {
+    router.push("/screens/groupB/divition_teching");
+  };
+  const multiplicationtButtonPress = () => {
+    router.push("/screens/groupB/multiplication_teaching");
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Select Operation!</Text>
@@ -29,6 +35,20 @@ export default function Basic_MathOperation_Screen() {
         onPress={() => substractButtonPress()}
       >
         <Text style={styles.buttonText}>Substractions (-)</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => divisionButtonPress()}
+      >
+        <Text style={styles.buttonText}>Devision (/)</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => multiplicationtButtonPress()}
+      >
+        <Text style={styles.buttonText}>Multiplication (*)</Text>
       </TouchableOpacity>
 
       <TouchableOpacity

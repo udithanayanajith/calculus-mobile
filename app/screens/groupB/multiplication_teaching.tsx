@@ -5,13 +5,13 @@ import { router } from "expo-router";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-export default function Substartion_Teaching_Screen() {
+export default function Multiplication_Teaching_Screen() {
   const videoRef = React.useRef<Video>(null);
   const [status, setStatus] = React.useState({ isLooping: false });
   const [isPlay, setIsPlay] = useState(false);
 
   const handleBackButtonPress = () => {
-    router.push("/screens/math_operations");
+    router.push("/screens/groupB/math_operations");
   };
 
   const togglePlay = () => {
@@ -35,13 +35,13 @@ export default function Substartion_Teaching_Screen() {
     <View style={styles.container}>
       <Image
         style={styles.coverImg}
-        source={require("../../assets/images/sub.png")}
+        source={require("../../../assets/images/sub.png")}
         resizeMode={ResizeMode.CONTAIN}
       />
       <Video
         ref={videoRef} // Reference for controlling the video
         style={styles.video}
-        source={require("../../assets/videos/subtraction.mp4")} // Ensure this path is correct
+        source={require("../../../assets/videos/subtraction.mp4")} // Ensure this path is correct
         useNativeControls
         resizeMode={ResizeMode.CONTAIN}
         isLooping={status.isLooping}

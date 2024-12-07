@@ -11,7 +11,7 @@ export default function Addition_Teaching_Screen() {
   const [isPlay, setIsPlay] = useState(false);
 
   const handleBackButtonPress = () => {
-    router.push("/screens/math_operations");
+    router.push("/screens/groupB/math_operations");
   };
 
   const togglePlay = () => {
@@ -35,13 +35,13 @@ export default function Addition_Teaching_Screen() {
     <View style={styles.container}>
       <Image
         style={styles.coverImg}
-        source={require("../../assets/images/ad.png")}
+        source={require("../../../assets/images/ad.png")}
         resizeMode={ResizeMode.CONTAIN}
       />
       <Video
         ref={videoRef} // Reference for controlling the video
         style={styles.video}
-        source={require("../../assets/videos/addition.mp4")} // Ensure this path is correct
+        source={require("../../../assets/videos/addition.mp4")} // Ensure this path is correct
         useNativeControls
         resizeMode={ResizeMode.CONTAIN}
         isLooping={status.isLooping}

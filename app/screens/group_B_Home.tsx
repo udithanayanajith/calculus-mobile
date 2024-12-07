@@ -42,6 +42,9 @@ export default function Group_B_HomeScreen() {
     };
   }, []);
 
+  const handleMathOperationButtonPress = () => {
+    router.push("/screens/groupB/math_operations");
+  };
   const handleBlindButtonPress = () => {
     // navigation.navigate("BlindHome");
   };
@@ -49,19 +52,8 @@ export default function Group_B_HomeScreen() {
   const handleMuteButtonPress = () => {
     // navigation.navigate("MuteHome");
   };
-
-  const handleLogout = async () => {
-    // try {
-    //   signOut(auth)
-    //     .then(() => {
-    //       navigation.navigate("Login");
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error logging out:", error);
-    //     });
-    // } catch (error) {
-    //   console.error("Error logging out:", error);
-    // }
+  const handleTeachTimeButtonPress = () => {
+    router.push("/screens/groupB/time_operations");
   };
 
   const handleHomeButtonPress = () => {
@@ -72,10 +64,16 @@ export default function Group_B_HomeScreen() {
     <View style={styles.container}>
       <Image style={styles.coverImg} source={images[imageIndex]} />
       <Text style={styles.title}>Welcome to Cr.Calculus!</Text>
-      <TouchableOpacity style={styles.button} onPress={handleBlindButtonPress}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleMathOperationButtonPress}
+      >
         <Text style={styles.buttonText}>Math Operations 0-500</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleMuteButtonPress}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleTeachTimeButtonPress}
+      >
         <Text style={styles.buttonText}>Teach Time</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={handleMuteButtonPress}>

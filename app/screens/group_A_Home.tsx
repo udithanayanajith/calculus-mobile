@@ -42,17 +42,17 @@ export default function Group_A_HomeScreen() {
   }, []);
 
   const handleCountButtonPress = () => {
-    router.push("/screens/number_count");
+    router.push("/screens/groupA/number_count");
   };
 
   const handleMathOperationButtonPress = () => {
-    router.push("/screens/math_operations");
+    router.push("/screens/groupA/math_operations");
   };
   const handleWhiteboardButtonPress = () => {
-    router.push("/screens/whiteboard_operation_check");
+    router.push("/screens/groupA/whiteboard_operation_check");
   };
   const handleSelectAnswerButtonPress = () => {
-    router.push("/screens/listen_and_select");
+    router.push("/screens/groupA/listen_and_select");
   };
 
   const handleLogout = async () => {
@@ -73,7 +73,7 @@ export default function Group_A_HomeScreen() {
     router.push("/screens/home");
   };
   const handleRecordCountingButtonPress = () => {
-    router.push("/screens/record_your_counting");
+    router.push("/screens/groupA/record_your_counting");
   };
 
   return (

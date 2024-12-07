@@ -2,57 +2,40 @@ import { router } from "expo-router";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function Record_your_counting() {
-  const navigateToRecordNumbers = (min: number, max: number) => {
-    router.push({
-      pathname: "/screens/record_numbers",
-      params: { min, max },
-    });
+export default function Basic_MathOperation_Screen() {
+  const handleBackButtonPress = () => {
+    router.push("/screens/group_A_Home");
   };
 
-  const handleHomeButtonPress = () => {
-    router.push("/screens/group_A_Home");
+  const additionButtonPress = () => {
+    router.push("/screens/groupA/addition_teching");
+  };
+
+  const substractButtonPress = () => {
+    router.push("/screens/groupA/substraction_teaching");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Select Range Before Count!</Text>
+      <Text style={styles.title}>Select Operation!</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigateToRecordNumbers(0, 2)}
+        onPress={() => additionButtonPress()}
       >
-        <Text style={styles.buttonText}>Count 0-10</Text>
+        <Text style={styles.buttonText}>Additions (+)</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigateToRecordNumbers(10, 20)}
+        onPress={() => substractButtonPress()}
       >
-        <Text style={styles.buttonText}>Count 10-20</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(20, 30)}
-      >
-        <Text style={styles.buttonText}>Count 20-30</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(30, 40)}
-      >
-        <Text style={styles.buttonText}>Count 30-40</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(40, 50)}
-      >
-        <Text style={styles.buttonText}>Count 40-50</Text>
+        <Text style={styles.buttonText}>Substractions (-)</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleHomeButtonPress}
+        style={styles.backButton}
+        onPress={handleBackButtonPress}
       >
-        <Text style={styles.buttonText}>Home</Text>
+        <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
     </View>
   );
@@ -96,7 +79,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
   },
-  logoutButton: {
+  backButton: {
     backgroundColor: "red",
     paddingVertical: 15,
     paddingHorizontal: 25,
