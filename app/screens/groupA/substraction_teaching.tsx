@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: "auto", // Automatically push it to the bottom of the screen
+    marginBottom: 20, // Add some space from the bottom
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -101,6 +102,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
+    position: "absolute", // Fix at the bottom
+    bottom: 10, // Distance from the bottom of the screen
   },
   buttons: {
     marginTop: 16,
@@ -119,6 +122,6 @@ const styles = StyleSheet.create({
     height: "30%", // Allow height to adjust based on aspect ratio
     aspectRatio: 16 / 9, // Maintain aspect ratio (adjust this based on your image dimensions)
     marginBottom: 2,
-    marginTop: "-20%", // Add some spacing from the video
+    marginTop: "-40%", // Add some spacing from the video
   },
 });

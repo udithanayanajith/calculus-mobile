@@ -7,34 +7,30 @@ import {
 } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-// Constants
+
 const BLOCK_SIZE = 20;
 const FOOD_BLOCK_SIZE = 30;
 const GAME_WIDTH = 400;
 const GAME_HEIGHT = 600;
 const INITIAL_FOOD_COUNT = 3;
 
-// Utility functions
 const snakeInitial = () => [{ x: 5, y: 5 }];
 
 const snakeHeadImage = require("../../../assets/images/snakeHead.png");
 
-// Minimum distance between food and snake segments
 const newSnake = [
   { x: 5, y: 5 },
   { x: 5, y: 6 },
-]; // Example snake segments
+];
 const newFood = [
   { x: 2, y: 3 },
   { x: 4, y: 5 },
-]; // Example existing food positions
+];
 const getRandomFoodPosition = (
   snake: { x: number; y: number }[],
   food: { x: number; y: number }[]
 ) => {
   const MIN_DISTANCE = 5;
-
-  // Defensive check for input types
   if (!Array.isArray(snake) || !Array.isArray(food)) {
     throw new Error("The snake and food parameters must be arrays.");
   }
@@ -44,7 +40,6 @@ const getRandomFoodPosition = (
 
   do {
     overlap = false;
-
     // Generate a new random position for food
     position = {
       x: Math.floor(Math.random() * ((GAME_WIDTH - 100) / BLOCK_SIZE)),
@@ -99,9 +94,9 @@ const Snake = () => {
   );
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState({ score: 0, highest: 0 });
-  const [isPaused, setIsPaused] = useState(false); // New state for pause
-  const [problem, setProblem] = useState(""); // New state for pause
-  const [correctAnswer, setCorrectAnswer] = useState(); // New state for pause
+  const [isPaused, setIsPaused] = useState(false); 
+  const [problem, setProblem] = useState(""); 
+  const [correctAnswer, setCorrectAnswer] = useState();
   const [allAnswers, setAllAnswers] = useState<number[]>([]);
 
   const timerRef = useRef<NodeJS.Timer | number | undefined>(undefined);
@@ -110,12 +105,10 @@ const Snake = () => {
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      // Game logic
     }, 2000);
 
     return () => {
       if (timerRef.current !== undefined) {
-        // Check if it’s a number and clear the interval
         if (typeof timerRef.current === "number") {
           clearInterval(timerRef.current);
         }
@@ -128,7 +121,7 @@ const Snake = () => {
   }, []);
 
   const moveInterval = () => {
-    if (isPaused) return; // Do not move if paused
+    if (isPaused) return; 
 
     const head = { ...snake[0] };
 
@@ -178,8 +171,8 @@ const Snake = () => {
         if (eatenValue == correctAnswer) {
           setScore((prev) => ({ ...prev, score: prev.score + 1 }));
           const newFood = [...food];
-          newFood.splice(eatenFoodIndex, 1); // Remove the eaten food
-          newFood.push(getRandomFoodPosition(newSnake, newFood)); // Ensure the new food position is valid
+          newFood.splice(eatenFoodIndex, 1);
+          newFood.push(getRandomFoodPosition(newSnake, newFood)); 
           setFood(newFood);
           generateRandomMathProblem();
         } else {
@@ -193,7 +186,7 @@ const Snake = () => {
   };
 
   const handlePause = () => {
-    setIsPaused((prev) => !prev); // Toggle the pause state
+    setIsPaused((prev) => !prev);
   };
 
   const handleGameOver = () => {
@@ -208,7 +201,6 @@ const Snake = () => {
     generateRandomMathProblem();
     setSnake(snakeInitial());
 
-    // Generate initial food positions
     const initialFood = Array.from({ length: INITIAL_FOOD_COUNT }, () =>
       getRandomFoodPosition(newSnake, newFood)
     );
@@ -220,7 +212,6 @@ const Snake = () => {
   };
 
   const changeDirection = (newDirection: React.SetStateAction<string>) => {
-    // Prevent reversing direction
     if (
       (direction === "UP" && newDirection === "UP") ||
       (direction === "DOWN" && newDirection === "DOWN") ||
@@ -241,17 +232,15 @@ const Snake = () => {
   }) => {
     const { translationX, translationY } = event.nativeEvent;
     if (Math.abs(translationX) > Math.abs(translationY)) {
-      // Horizontal movement
       changeDirection(translationX > 0 ? "RIGHT" : "LEFT");
     } else {
-      // Vertical movement
       changeDirection(translationY > 0 ? "DOWN" : "UP");
     }
   };
 
   const generateRandomMathProblem = () => {
     const MAX_RESULT = 500;
-    const NUM_WRONG_ANSWERS = 2; // Number of wrong answers to generate
+    const NUM_WRONG_ANSWERS = 2;
 
     const operations = [
       {
@@ -270,19 +259,18 @@ const Snake = () => {
         symbol: "*",
         operation: (num1: number, num2: number) => num1 * num2,
         minNum: 0,
-        maxNum: Math.floor(MAX_RESULT / 10), // To prevent exceeding 500
+        maxNum: Math.floor(MAX_RESULT / 10),
       },
       {
         symbol: "/",
-        operation: (num1: number, num2: number) => Math.floor(num1 / num2), // Ensure integer division
+        operation: (num1: number, num2: number) => Math.floor(num1 / num2),
         minNum: 1,
-        maxNum: MAX_RESULT, // Denominator should not be zero
+        maxNum: MAX_RESULT,
       },
     ];
 
     let num1, num2, operation, correctAnswer;
 
-    // Generate a valid math problem
     do {
       operation = operations[Math.floor(Math.random() * operations.length)];
 
@@ -294,7 +282,7 @@ const Snake = () => {
       if (operation.symbol === "/") {
         num2 =
           Math.floor(Math.random() * (num1 - operation.minNum + 1)) +
-          operation.minNum; // Ensure num2 ≤ num1
+          operation.minNum;
       } else {
         num2 =
           Math.floor(
@@ -302,7 +290,6 @@ const Snake = () => {
           ) + operation.minNum;
       }
 
-      // Calculate the correct answer and ensure it's an integer
       correctAnswer = operation.operation(num1, num2);
     } while (
       correctAnswer < 0 ||
@@ -364,7 +351,7 @@ const Snake = () => {
                 i === 0 ? ( // Render snake head
                   <Image
                     key={i}
-                    source={snakeHeadImage} // Ensure correct image import
+                    source={snakeHeadImage}
                     style={{
                       position: "absolute",
                       left: segment.x * BLOCK_SIZE,
@@ -372,7 +359,7 @@ const Snake = () => {
                       width: BLOCK_SIZE + 20,
                       height: BLOCK_SIZE + 20,
                       marginLeft: -11.5,
-                      zIndex: 1, // Ensure it's above the body segments
+                      zIndex: 1,
                     }}
                   />
                 ) : (

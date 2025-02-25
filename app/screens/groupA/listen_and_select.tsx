@@ -8,8 +8,7 @@ import {
   Modal,
 } from "react-native";
 import * as Speech from "expo-speech";
-import { useNavigation } from "@react-navigation/native";
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const NumberQuizScreen: React.FC = () => {
@@ -58,7 +57,13 @@ const NumberQuizScreen: React.FC = () => {
   };
 
   const speakNumber = (number: number) => {
-    if (quizStarted) Speech.speak(`Select the number ${number}`);
+    if (quizStarted) {
+      Speech.speak(`Select the number ${number}`, {
+        rate: 0.95, // Adjust this value for desired speed
+        language: "en-US", // You can also specify the language
+        pitch: 1.0, // Adjust pitch if needed
+      });
+    }
   };
 
   const handleAnswer = (selected: number) => {
@@ -258,7 +263,7 @@ const styles = StyleSheet.create({
   quizContainer: {
     flex: 1,
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 8,
   },
   option: {
     padding: 20, // Increased padding for larger buttons
@@ -318,7 +323,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     padding: 15,
-    backgroundColor: "#4A5568",
+    backgroundColor: "red",
     borderRadius: 10,
     alignItems: "center",
     marginBottom: 20,

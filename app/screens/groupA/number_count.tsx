@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import * as Speech from "expo-speech";
-import { router } from "expo-router";
+import { useRouter, useNavigation } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { useNavigation } from "@react-navigation/native";
 
 const NumberCountScreen: React.FC = () => {
   const [start, setStart] = useState(0);
@@ -13,6 +12,7 @@ const NumberCountScreen: React.FC = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const navigation = useNavigation();
   let speechTime = 3;
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("beforeRemove", () => {
@@ -44,7 +44,7 @@ const NumberCountScreen: React.FC = () => {
         Speech.speak(number.toString(), {
           language: "en-US",
           pitch: 1.0,
-          rate: 0.4,
+          rate: 0.7,
           onDone: () => {
             count++;
             speakLoop();
@@ -230,18 +230,21 @@ const styles = StyleSheet.create({
     width: "30%",
   },
   logoutButton: {
-    marginTop: 10,
     backgroundColor: "red",
     paddingVertical: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 25,
     borderRadius: 10,
+    marginTop: "auto", // Automatically push it to the bottom of the screen
+    marginBottom: 20, // Add some space from the bottom
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 3,
-    width: "50%",
+    width: "90%",
     alignItems: "center",
+    position: "absolute", // Fix at the bottom
+    bottom: 10, // Distance from the bottom of the screen
   },
   controlText: {
     color: "#FFF",

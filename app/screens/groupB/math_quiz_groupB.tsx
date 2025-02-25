@@ -2,60 +2,51 @@ import { router } from "expo-router";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function Basic_MathOperation_Screen() {
-  const handleBackButtonPress = () => {
+export default function Math_Quiz_GroupB() {
+  const navigateToQuz = (operator: string) => {
+    router.push({
+      pathname: "/screens/groupB/Quiz/Quiz",
+      params: { operator },
+    });
+  };
+
+  const handleHomeButtonPress = () => {
     router.push("/screens/group_B_Home");
   };
 
-  const additionButtonPress = () => {
-    router.push("/screens/groupB/addition_teching");
-  };
-
-  const substractButtonPress = () => {
-    router.push("/screens/groupB/substraction_teaching");
-  };
-
-  const divisionButtonPress = () => {
-    router.push("/screens/groupB/divition_teching");
-  };
-  const multiplicationtButtonPress = () => {
-    router.push("/screens/groupB/multiplication_teaching");
-  };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Select Operation!</Text>
+      <Text style={styles.title}>Select Your Math Quiz!</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => additionButtonPress()}
+        onPress={() => navigateToQuz("+")}
       >
-        <Text style={styles.buttonText}>Additions (+)</Text>
+        <Text style={styles.buttonText}>Addition Quiz </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => substractButtonPress()}
+        onPress={() => navigateToQuz("-")}
       >
-        <Text style={styles.buttonText}>Substractions (-)</Text>
+        <Text style={styles.buttonText}>Substraction Quiz</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.button}
-        onPress={() => divisionButtonPress()}
+        onPress={() => navigateToQuz("/")}
       >
-        <Text style={styles.buttonText}>Devision (/)</Text>
+        <Text style={styles.buttonText}>Division Quiz</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.button}
-        onPress={() => multiplicationtButtonPress()}
+        onPress={() => navigateToQuz("*")}
       >
-        <Text style={styles.buttonText}>Multiplication (*)</Text>
+        <Text style={styles.buttonText}>Multiplication Quiz</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.backButton}
-        onPress={handleBackButtonPress}
+        style={styles.logoutButton}
+        onPress={handleHomeButtonPress}
       >
-        <Text style={styles.buttonText}>Back</Text>
+        <Text style={styles.buttonText}>Home</Text>
       </TouchableOpacity>
     </View>
   );
@@ -99,7 +90,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
   },
-  backButton: {
+  logoutButton: {
     backgroundColor: "red",
     paddingVertical: 15,
     paddingHorizontal: 25,

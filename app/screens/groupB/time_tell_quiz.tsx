@@ -219,8 +219,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000",
     marginBottom: 20,
+    marginTop: "-50%",
   },
-  clock: { marginTop: 20 },
+  clock: { marginTop: 10 },
   pickerContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -269,12 +270,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   backButton: {
-    backgroundColor: "#FF4500",
+    backgroundColor: "red",
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: 60,
-    width: "60%",
+    marginTop: "auto", // Automatically push it to the bottom of the screen
+    marginBottom: 20, // Add some space from the bottom
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+    width: "90%",
+    alignItems: "center",
+    position: "absolute", // Fix at the bottom
+    bottom: 10, // Distance from the bottom of the screen
   },
   buttonText: {
     fontSize: 18,

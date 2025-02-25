@@ -79,7 +79,7 @@ export default function Group_A_HomeScreen() {
   return (
     <View style={styles.container}>
       <Image style={styles.coverImg} source={images[imageIndex]} />
-      <Text style={styles.title}>Welcome to Cr.Calculus!</Text>
+      <Text style={styles.title}>Welcome to Dr.Calculus!</Text>
       <TouchableOpacity style={styles.button} onPress={handleCountButtonPress}>
         <Text style={styles.buttonText}>Count 0-50</Text>
       </TouchableOpacity>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginBottom: 15,
+    marginTop: "auto", // Automatically push it to the bottom of the screen
+    marginBottom: 20, // Add some space from the bottom
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -168,6 +169,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
+    position: "absolute", // Fix at the bottom
+    bottom: 10, // Distance from the bottom of the screen
   },
   buttonText: {
     color: "#000",

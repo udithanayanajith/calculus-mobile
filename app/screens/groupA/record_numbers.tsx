@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Audio } from "expo-av";
-import { router, useFocusEffect, useGlobalSearchParams } from "expo-router";
-import { useNavigation } from "@react-navigation/native";
+import {
+  router,
+  useFocusEffect,
+  useGlobalSearchParams,
+  useNavigation,
+} from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const RandomNumberVoiceRecorder: React.FC = () => {
@@ -363,18 +367,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   logoutButton: {
-    marginTop: 10,
     backgroundColor: "red",
     paddingVertical: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 25,
     borderRadius: 10,
+    marginTop: "auto", // Automatically push it to the bottom of the screen
+    marginBottom: 20, // Add some space from the bottom
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 3,
-    width: "50%",
+    width: "90%",
     alignItems: "center",
+    position: "absolute", // Fix at the bottom
+    bottom: 10, // Distance from the bottom of the screen
   },
   buttonText: {
     color: "#fff",
