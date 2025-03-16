@@ -44,7 +44,7 @@ const SubstractionQuizScreen: React.FC = () => {
         name: "digit.jpg",
       });
 
-      const response = await fetch("http://192.168.8.162:50000/digit/predict", {
+      const response = await fetch("http://192.168.8.162:5000/digit/predict", {
         method: "POST",
         body: formData,
         headers: {
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   loaderContainer: {
     position: "absolute",
     top: "50%",
-    left: "50%",
+    left: "38%",
     transform: [{ translateX: -100 }, { translateY: -50 }],
     backgroundColor: "#fff",
     padding: 20,
