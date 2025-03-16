@@ -4,9 +4,9 @@ import {
   StyleSheet,
   View,
   Text,
-  Alert,
   TouchableOpacity,
   Modal,
+  ActivityIndicator,
 } from "react-native";
 import Signature, { SignatureViewRef } from "react-native-signature-canvas";
 
@@ -17,76 +17,69 @@ const AdditionQuizScreen: React.FC = () => {
   const [correctAnswer, setCorrectAnswers] = useState<number[]>([]);
   const [incorrectAnswer, setIncorrectAnswers] = useState<number[]>([]);
   const [questionCount, setQuestionCount] = useState<number>(0);
-  const [signature, setSignature] = useState(""); // Store signature data
-  const [isQuizComplete, setIsQuizComplete] = useState<boolean>(false); // To control modal visibility
-  const [grade, setGrade] = useState<string>(""); // To store the final grade
+  const [signature, setSignature] = useState("");
+  const [isQuizComplete, setIsQuizComplete] = useState<boolean>(false);
+  const [grade, setGrade] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isResultModalVisible, setIsResultModalVisible] =
+    useState<boolean>(false);
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
-  // Function to generate a random addition question where the sum does not exceed 20
   const generateQuestion = () => {
-    const num1 = Math.floor(Math.random() * 21); // Random number between 0 and 20
-    const num2 = Math.floor(Math.random() * (21 - num1)); // Ensure the sum does not exceed 20
+    const num1 = Math.floor(Math.random() * 21);
+    const num2 = Math.floor(Math.random() * (21 - num1));
     setQuestion(`${num1} + ${num2} = ?`);
     setAnswer(num1 + num2);
   };
 
-  const handleSignatureSave = async (
-    signatureDataUrl: React.SetStateAction<string>
-  ) => {
+  const handleSignatureSave = async (signatureDataUrl: string) => {
     setSignature(signatureDataUrl);
+    setIsLoading(true);
 
     try {
-      // Create FormData object to send file
       const formData = new FormData();
       formData.append("image", {
-        uri: signatureDataUrl, // The 'signatureDataUrl' is a base64 URL
-        type: "image/jpg", // Set the appropriate MIME type
-        name: "signature.jpg", // Name of the file
+        uri: signatureDataUrl,
+        type: "image/jpg",
+        name: "digit.jpg",
       });
 
-      // Send the FormData object to the API
-      const response = await fetch(
-        "http://192.168.8.162:500/deaf/digit/predict",
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            "Content-Type": "multipart/form-data", // Ensure correct header for form data
-          },
-        }
-      );
+      const response = await fetch("http://192.168.8.162:5000/digit/predict", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      // Handle the response
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.includes("application/json")) {
         const result = await response.json();
-        console.log("Result", result.result);
-        console.log("Percentage", result.percentage);
+        const isAnswerCorrect = result.result == answer;
+        setIsCorrect(isAnswerCorrect);
 
-        // Update the correct or incorrect answer counts
-        if (result.result == answer) {
+        if (isAnswerCorrect) {
           setCorrectAnswers((prev) => [...prev, result.result]);
         } else {
           setIncorrectAnswers((prev) => [...prev, result.result]);
         }
 
-        // Increase the question count
         setQuestionCount((prevCount) => prevCount + 1);
 
-        // Check if quiz is complete (10 questions answered)
         if (questionCount + 1 >= 10) {
           calculateGrade();
           setIsQuizComplete(true);
           handleClear();
         } else {
+          setIsResultModalVisible(true);
           handleClear();
           generateQuestion();
         }
-      } else {
-        handleClear();
-        generateQuestion();
       }
     } catch (error) {
-      console.error("Error sending signature to API:", error);
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -112,24 +105,26 @@ const AdditionQuizScreen: React.FC = () => {
   };
 
   const handleCloseModal = () => {
-    setIsQuizComplete(false); // Close the modal
-    setQuestionCount(0); // Reset question count
-    setCorrectAnswers([]); // Reset correct answers
-    setIncorrectAnswers([]); // Reset incorrect answers
-    setGrade(""); // Reset grade
-    generateQuestion(); // Start a new quiz
+    setIsQuizComplete(false);
+    setQuestionCount(0);
+    setCorrectAnswers([]);
+    setIncorrectAnswers([]);
+    setGrade("");
+    generateQuestion();
   };
 
-  // Start by generating the first question
+  const handleCloseResultModal = () => {
+    setIsResultModalVisible(false);
+  };
+
   React.useEffect(() => {
     generateQuestion();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Write by your fingure!</Text>
+      <Text style={styles.title}>Write by your finger!</Text>
       <Text style={styles.question}>{question}</Text>
-      {/* style={styles.whiteboardSignature}backgroundColor="#FFFFFF" */}
       <Signature
         ref={additionMathQuizRef}
         onOK={handleSignatureSave}
@@ -143,21 +138,48 @@ const AdditionQuizScreen: React.FC = () => {
         style={styles.whiteboardSignature}
         backgroundColor="#FFFFFF"
       />
-
-      {/* Back Button */}
       <TouchableOpacity
         style={styles.backButton}
         onPress={handleBackButtonPress}
       >
         <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
-      {/* Modal for quiz result */}
-      <Modal
-        visible={isQuizComplete}
-        animationType="slide"
+
+      {isLoading && (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={styles.loaderText}>
+            Wait, Dr. Calculus AI is processing your answer...
+          </Text>
+        </View>
+      )}
+
+      {/* <Modal
+        visible={isResultModalVisible}
         transparent={true}
-        onRequestClose={handleCloseModal}
+        animationType="slide"
       >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text
+              style={[
+                styles.modalTitle,
+                { color: isCorrect ? "#4CAF50" : "#FF6347" },
+              ]}
+            >
+              {isCorrect ? "Correct!" : "Incorrect!"}
+            </Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={handleCloseResultModal}
+            >
+              <Text style={styles.buttonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal> */}
+
+      <Modal visible={isQuizComplete} transparent={true} animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Quiz Results</Text>
@@ -186,7 +208,7 @@ export default AdditionQuizScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#e8f0fe", // Light background color for the quiz
+    backgroundColor: "#e8f0fe",
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
@@ -202,15 +224,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 100,
     textAlign: "center",
-    color: "#4CAF50", // Green color for positive energy
+    color: "#4CAF50",
   },
   backButton: {
     backgroundColor: "red",
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", // Automatically push it to the bottom of the screen
-    marginBottom: 20, // Add some space from the bottom
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -218,19 +240,37 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", // Fix at the bottom
-    bottom: 10, // Distance from the bottom of the screen
+    position: "absolute",
+    bottom: 10,
   },
   whiteboardSignature: {
     width: "100%",
-    height: "50%", // Reduce the height to shrink the whiteboard
+    height: "50%",
     borderWidth: 1,
     borderColor: "#C0C0C0",
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
-    overflow: "hidden", // Ensure no overflow
+    overflow: "hidden",
   },
-
+  loaderContainer: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -100 }, { translateY: -50 }],
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 4,
+  },
+  loaderText: {
+    fontSize: 16,
+    marginTop: 10,
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -252,7 +292,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "bold",
     marginBottom: 15,
-    color: "#4CAF50", // Green color for the title
   },
   modalText: {
     fontSize: 20,
@@ -262,11 +301,11 @@ const styles = StyleSheet.create({
   modalGrade: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FF6347", // Red color for grade display
+    color: "#FF6347",
     marginBottom: 20,
   },
   modalButton: {
-    backgroundColor: "#FF4500", // Orange color for the button
+    backgroundColor: "#FF4500",
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 8,

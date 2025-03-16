@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Modal,
+  ActivityIndicator,
+} from "react-native";
 import { Audio } from "expo-av";
 import {
   router,
@@ -28,6 +36,12 @@ const RandomNumberVoiceRecorder: React.FC = () => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isfinished, setIsFinished] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [result, setResult] = useState<{
+    correct_count: number;
+    total_numbers: number;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(false); // Loader state
 
   const navigation = useNavigation();
 
@@ -58,7 +72,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
 
     // Shuffle the array using a function that randomizes the order
     const shuffledNumbers = shuffleArray(numbersArray);
-
     setNumbers(shuffledNumbers);
     setRemainingNumbers(shuffledNumbers);
     setCount(0);
@@ -72,10 +85,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
     }
     return array;
   };
-
-  useEffect(() => {
-    generateRandomNumbers();
-  }, [min, max]);
 
   useEffect(() => {
     if (isRandomNumberRunning && remainingNumbers.length > 0 && !isPaused) {
@@ -137,7 +146,7 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       recordingRef.current = newRecording;
       setIsRecording(true);
     } catch (error) {
-      //console.error("Failed to start recording:", error);
+      console.error("Failed to start recording:", error);
     }
   };
 
@@ -148,12 +157,12 @@ const RandomNumberVoiceRecorder: React.FC = () => {
         const uri = recordingRef.current.getURI();
         setRecordingUri(uri);
         setIsRecording(false);
+        recordingRef.current = null;
       }
     } catch (error) {
-      //console.error("Failed to stop recording:", error);
+      console.error("Failed to stop recording:", error);
     }
   };
-
   const playRecording = async () => {
     if (recordingUri) {
       if (!sound) {
@@ -237,11 +246,91 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       playRecording();
     }
   };
+
   const handleHomeButtonPress = () => {
-    setIsPlaying(false);
-    stopRandomNumbersAndRecording();
-    stopPlaying();
-    router.push("/screens/groupA/record_your_counting");
+    if (recordingRef.current) {
+      stopRecording().then(() => {
+        setIsPlaying(false);
+        stopRandomNumbersAndRecording();
+        stopPlaying();
+        router.push("/screens/groupA/record_your_counting");
+      });
+    } else {
+      setIsPlaying(false);
+      stopRandomNumbersAndRecording();
+      stopPlaying();
+      router.push("/screens/groupA/record_your_counting");
+    }
+  };
+  const sendToCheck = async () => {
+    if (!recordingUri) {
+      Alert.alert("No recording available");
+      return;
+    }
+
+    setIsLoading(true); // Show loader
+
+    try {
+      // Create FormData and append the file
+      const formData = new FormData();
+      formData.append("file", {
+        uri: recordingUri,
+        name: "recording.m4a",
+        type: "audio/m4a",
+      });
+      formData.append("numbers", numbers.join(","));
+
+      // Send the request to the Python API
+      const response = await fetch("http://192.168.8.162:5000/transcribe", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const data = await response.json();
+      setResult({
+        correct_count: data.correct_count,
+        total_numbers: data.total_numbers,
+      });
+      setModalVisible(true);
+    } catch (error) {
+      console.error("Error sending data:", error);
+      Alert.alert("Error", "Failed to send data to the server");
+    } finally {
+      setIsLoading(false); // Hide loader
+    }
+  };
+
+  // Calculate percentage
+  const calculatePercentage = () => {
+    if (!result) return 0;
+    return (result.correct_count / result.total_numbers) * 100;
+  };
+
+  // Determine grade based on percentage
+  const getGrade = () => {
+    const percentage = calculatePercentage();
+    if (percentage >= 80) return "Good";
+    if (percentage >= 50) return "Average";
+    return "Need to Improve";
+  };
+
+  // Get modal color based on grade
+  const getModalColor = () => {
+    const grade = getGrade();
+    switch (grade) {
+      case "Good":
+        return "#4CAF50"; // Green
+      case "Average":
+        return "#FFC107"; // Yellow
+      case "Need to Improve":
+        return "#F44336"; // Red
+      default:
+        return "#FFFFFF"; // White
+    }
   };
 
   return (
@@ -296,19 +385,63 @@ const RandomNumberVoiceRecorder: React.FC = () => {
           </TouchableOpacity>
         )}
 
-        {/* Show the "Restart" button after random number process has finished and recording is available */}
+        {/* Show the "Check" button after recording is done */}
         {recordingUri && !isRandomNumberRunning && (
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={sendToCheck}>
             <Icon name="check" size={50} color="#fff" />
           </TouchableOpacity>
         )}
       </View>
+
+      {/* Loader */}
+      {isLoading && (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={styles.loaderText}>
+            Your answers are being checked by Calculus AI. Please wait...
+          </Text>
+        </View>
+      )}
+
       <TouchableOpacity
         style={styles.logoutButton}
         onPress={handleHomeButtonPress}
       >
         <Text style={styles.buttonText}>Menu</Text>
       </TouchableOpacity>
+
+      {/* Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
+        <View style={styles.centeredView}>
+          <View
+            style={[
+              styles.modalView,
+              { backgroundColor: getModalColor() }, // Dynamic background color
+            ]}
+          >
+            <Text style={styles.modalText}>
+              Correctly Spoken Numbers: {result?.correct_count}
+            </Text>
+            <Text style={styles.modalText}>
+              Total Numbers: {result?.total_numbers}
+            </Text>
+            <Text style={styles.modalText}>
+              Grade: {getGrade()} ({calculatePercentage().toFixed(2)}%)
+            </Text>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -371,8 +504,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", // Automatically push it to the bottom of the screen
-    marginBottom: 20, // Add some space from the bottom
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -380,8 +513,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", // Fix at the bottom
-    bottom: 10, // Distance from the bottom of the screen
+    position: "absolute",
+    bottom: 10,
   },
   buttonText: {
     color: "#fff",
@@ -390,8 +523,57 @@ const styles = StyleSheet.create({
   selectedButton: {
     backgroundColor: "#005cbf",
   },
-  selectedButtonText: {
-    color: "#fff",
+  loaderContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+  },
+  loaderText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "#000000",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#000000",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+    padding: 10,
+    borderRadius: 5,
+  },
+  textStyle: {
+    color: "#FFFFFF",
+    fontSize: 16,
     fontWeight: "bold",
   },
 });
