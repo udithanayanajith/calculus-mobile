@@ -7,7 +7,6 @@ import {
 } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-
 const BLOCK_SIZE = 20;
 const FOOD_BLOCK_SIZE = 30;
 const GAME_WIDTH = 400;
@@ -94,8 +93,8 @@ const Snake = () => {
   );
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState({ score: 0, highest: 0 });
-  const [isPaused, setIsPaused] = useState(false); 
-  const [problem, setProblem] = useState(""); 
+  const [isPaused, setIsPaused] = useState(false);
+  const [problem, setProblem] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState();
   const [allAnswers, setAllAnswers] = useState<number[]>([]);
 
@@ -104,8 +103,7 @@ const Snake = () => {
   const timerId = useRef<NodeJS.Timer>();
 
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-    }, 2000);
+    timerRef.current = setInterval(() => {}, 2000);
 
     return () => {
       if (timerRef.current !== undefined) {
@@ -121,7 +119,7 @@ const Snake = () => {
   }, []);
 
   const moveInterval = () => {
-    if (isPaused) return; 
+    if (isPaused) return;
 
     const head = { ...snake[0] };
 
@@ -172,7 +170,7 @@ const Snake = () => {
           setScore((prev) => ({ ...prev, score: prev.score + 1 }));
           const newFood = [...food];
           newFood.splice(eatenFoodIndex, 1);
-          newFood.push(getRandomFoodPosition(newSnake, newFood)); 
+          newFood.push(getRandomFoodPosition(newSnake, newFood));
           setFood(newFood);
           generateRandomMathProblem();
         } else {

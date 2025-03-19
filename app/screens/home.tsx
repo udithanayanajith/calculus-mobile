@@ -8,8 +8,9 @@ import {
   Alert,
   Image,
 } from "react-native";
+import { clearAuthState } from "../customFiles/authUtils";
 
-const HomeScreen = () => {
+export default function HomeScreen() {
   const handleGroup_A_ButtonPress = () => {
     router.push("/screens/group_A_Home");
   };
@@ -24,9 +25,10 @@ const HomeScreen = () => {
 
   const handleLogout = async () => {
     try {
-      router.push("/");
+      await clearAuthState();
+      router.replace("/");
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -55,9 +57,9 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/images/welcome.png")} // Replace with your image URL
+        source={require("../../assets/images/welcome.png")}
         style={styles.coverBanner}
-        resizeMode="contain" // Adjusts the image to fit the container
+        resizeMode="contain"
       />
       <Text style={styles.title}>Welcome to Dr.Calculus!</Text>
       <TouchableOpacity
@@ -86,7 +88,7 @@ const HomeScreen = () => {
       </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -97,13 +99,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   coverImg: {
-    width: "100%", // Adjust width as needed
-    height: 200, // Adjust height as needed
+    width: "100%",
+    height: 200,
     marginBottom: 20,
   },
   coverBanner: {
-    width: "120%", // Adjust width as needed
-    height: 200, // Adjust height as needed
+    width: "120%",
+    height: 200,
     marginBottom: 20,
   },
   title: {
@@ -149,5 +151,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default HomeScreen;

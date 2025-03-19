@@ -59,9 +59,9 @@ const NumberQuizScreen: React.FC = () => {
   const speakNumber = (number: number) => {
     if (quizStarted) {
       Speech.speak(`Select the number ${number}`, {
-        rate: 0.95, // Adjust this value for desired speed
-        language: "en-US", // You can also specify the language
-        pitch: 1.0, // Adjust pitch if needed
+        rate: 0.95, 
+        language: "en-US", 
+        pitch: 1.0, 
       });
     }
   };
@@ -111,9 +111,9 @@ const NumberQuizScreen: React.FC = () => {
   const grade = calculateGrade(correctPercentage);
 
   const handleBackButtonPress = () => {
-    Speech.stop(); // Stop any speech that may be playing
-    resetQuiz(); // Reset the quiz state
-    router.push("/screens/group_A_Home"); // Navigate back
+    Speech.stop();
+    resetQuiz();
+    router.push("/screens/group_A_Home"); 
   };
   return (
     <View style={styles.container}>
@@ -182,8 +182,7 @@ const NumberQuizScreen: React.FC = () => {
               Grade: {grade}
             </Text>
             <TouchableOpacity onPress={resetQuiz}>
-              {/* <Text style={styles.controlButtonText}>Restart Quiz</Text> */}
-              <Icon name="repeat" size={30} color="#4A5568" />
+                         <Icon name="repeat" size={30} color="#4A5568" />
             </TouchableOpacity>
           </View>
         </View>
@@ -266,8 +265,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   option: {
-    padding: 20, // Increased padding for larger buttons
-    marginVertical: 10, // Increased margin for better spacing
+    padding: 20, 
+    marginVertical: 10,
     borderRadius: 10,
     backgroundColor: "#FFFFFF",
     borderWidth: 2,
@@ -278,10 +277,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 3,
-    width: "100%", // Set width to 100% for full width
+    width: "100%",
   },
   optionText: {
-    fontSize: 24, // Increased font size for better readability
+    fontSize: 24,
     color: "#2D3748",
   },
   correctOption: {

@@ -23,10 +23,6 @@ export default function Group_A_HomeScreen() {
     }, 2000);
 
     const backAction = () => {
-      // if (navigation.isFocused()) {
-      //   BackHandler.exitApp();
-      //   return true;
-      // }
       return false;
     };
 
@@ -53,20 +49,6 @@ export default function Group_A_HomeScreen() {
   };
   const handleSelectAnswerButtonPress = () => {
     router.push("/screens/groupA/listen_and_select");
-  };
-
-  const handleLogout = async () => {
-    // try {
-    //   signOut(auth)
-    //     .then(() => {
-    //       navigation.navigate("Login");
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error logging out:", error);
-    //     });
-    // } catch (error) {
-    //   console.error("Error logging out:", error);
-    // }
   };
 
   const handleHomeButtonPress = () => {
@@ -160,8 +142,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", // Automatically push it to the bottom of the screen
-    marginBottom: 20, // Add some space from the bottom
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -169,8 +151,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", // Fix at the bottom
-    bottom: 10, // Distance from the bottom of the screen
+    position: "absolute",
+    bottom: 10,
   },
   buttonText: {
     color: "#000",

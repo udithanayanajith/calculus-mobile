@@ -6,34 +6,47 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { FIREBASE_AUTH } from "./customFiles/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { setAuthState } from "./customFiles/authUtils";
 
 export default function Index() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const auth = FIREBASE_AUTH;
 
-  const handleLogin = () => {
-    if (username === "" && password === "") {
-      router.push("/screens/home");
-    } else {
-      Alert.alert("Invalid credentials", "Username or password is incorrect");
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      if (response) {
+        await setAuthState(true);
+        router.push("/screens/home");
+      }
+    } catch (error: any) {
+      Alert.alert("Error", "Invalid email or password");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Login</Text>
-
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Email"
         placeholderTextColor="#888"
-        value={username}
-        onChangeText={setUsername}
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
-
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -42,22 +55,29 @@ export default function Index() {
         onChangeText={setPassword}
         secureTextEntry
       />
-
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-
+      {loading ? (
+        <ActivityIndicator size="large" color="#007bff" />
+      ) : (
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      )}
       <Text style={styles.footer}>
-        Enter username: "user" and password: "123"
+        Don't have an account?{" "}
+        <Text
+          style={styles.link}
+          onPress={() => router.push("/screens/signUp")}
+        >
+          Sign Up
+        </Text>
       </Text>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#25292e",
+    backgroundColor: "#E0E8F9",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
@@ -66,36 +86,43 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 30,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#2C3E50",
     marginBottom: 30,
   },
   input: {
     height: 50,
     width: "100%",
-    borderColor: "#888",
+    borderColor: "#A0AEC0",
     borderWidth: 1,
     borderRadius: 8,
     paddingLeft: 15,
     marginBottom: 15,
-    color: "#fff",
+    color: "#2C3E50",
+    backgroundColor: "#FFFFFF",
   },
   button: {
-    backgroundColor: "#007bff",
-    paddingVertical: 10,
+    backgroundColor: "#4A90E2",
+    paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 8,
     marginTop: 20,
+    width: "100%",
+    alignItems: "center",
   },
   buttonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "600",
     textAlign: "center",
   },
   footer: {
-    color: "#aaa",
-    fontSize: 12,
+    color: "#718096",
+    fontSize: 14,
     marginTop: 30,
     textAlign: "center",
+  },
+  link: {
+    color: "#4A90E2",
+    textDecorationLine: "underline",
   },
 });

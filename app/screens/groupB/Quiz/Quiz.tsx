@@ -34,28 +34,27 @@ const generateQuestion = (operator: string | null): Question => {
       break;
     case "-":
       num2 = Math.floor(Math.random() * 501);
-      answer = Math.floor(Math.random() * (num2 + 1)); // Ensure answer is always positive
-      num1 = answer + num2; // Adjust num1 to ensure it's greater than num2
+      answer = Math.floor(Math.random() * (num2 + 1));
+      num1 = answer + num2;
       break;
     case "*":
-      num1 = Math.floor(Math.random() * 32); // Limit to keep product ≤ 1000
+      num1 = Math.floor(Math.random() * 32);
       num2 = Math.floor(Math.random() * 32);
       answer = num1 * num2;
       break;
     case "/":
       num2 = Math.floor(Math.random() * 501);
-      if (num2 === 0) return generateQuestion(operator); // Avoid division by zero
-      answer = Math.floor(Math.random() * 501); // Random numerator for division
-      num1 = answer * num2; // Adjust num1 to make the division exact
+      if (num2 === 0) return generateQuestion(operator);
+      answer = Math.floor(Math.random() * 501);
+      num1 = answer * num2;
       break;
     default:
       throw new Error("Unknown operator");
   }
 
-  // Generate distinct wrong answers that are positive
   const wrongAnswers: number[] = [];
   while (wrongAnswers.length < 3) {
-    const wrongAnswer = answer + Math.floor(Math.random() * 20) + 1; // Generate a wrong answer within a positive range
+    const wrongAnswer = answer + Math.floor(Math.random() * 20) + 1;
     if (wrongAnswer !== answer && !wrongAnswers.includes(wrongAnswer)) {
       wrongAnswers.push(wrongAnswer);
     }
@@ -132,15 +131,15 @@ const Quiz: React.FC = () => {
     setModalOpen(false);
   };
   const restartQuiz = () => {
-    if (!operator) return; // Ensure the operator is defined
+    if (!operator) return;
     const regeneratedQuestions = Array.from({ length: 10 }, () =>
       generateQuestion(operator)
-    ); // Regenerate the questions
+    );
     setQuestions(regeneratedQuestions);
-    setCurrentQuestionIndex(0); // Reset question index to the beginning
-    setCorrectCount(0); // Reset the score
-    setSelectedAnswer(null); // Clear any selected answer
-    setModalOpen(false); // Close the result modal if open
+    setCurrentQuestionIndex(0);
+    setCorrectCount(0);
+    setSelectedAnswer(null);
+    setModalOpen(false);
   };
 
   const handleHomeButtonPress = () => {
@@ -267,8 +266,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", // Automatically push it to the bottom of the screen
-    marginBottom: 20, // Add some space from the bottom
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -276,8 +275,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", // Fix at the bottom
-    bottom: 10, // Distance from the bottom of the screen
+    position: "absolute",
+    bottom: 10,
   },
   homeButtonText: {
     color: "#000",

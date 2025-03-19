@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", // Fix at the bottom
-    bottom: 10, // Distance from the bottom of the screen
+    position: "absolute",
+    bottom: 10,
   },
   buttonText: {
     color: "#000",

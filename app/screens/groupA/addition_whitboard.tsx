@@ -113,10 +113,6 @@ const AdditionQuizScreen: React.FC = () => {
     generateQuestion();
   };
 
-  const handleCloseResultModal = () => {
-    setIsResultModalVisible(false);
-  };
-
   React.useEffect(() => {
     generateQuestion();
   }, []);

@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as Speech from "expo-speech";
-import questionsData from "../../customFiles/narrativeQuestions.json"; // Adjust the import based on your file structure
+import questionsData from "../../customFiles/narrativeQuestions.json"; 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { router } from "expo-router";
 
 const NarrativeQuiz: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [userAnswer, setUserAnswer] = useState<string>(""); // State for normal question answers
+  const [userAnswer, setUserAnswer] = useState<string>(""); 
   const [questions, setQuestions] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -39,7 +39,6 @@ const NarrativeQuiz: React.FC = () => {
   const handleAnswer = (selectedAnswer: string) => {
     let isCorrect = false;
 
-    // Check answer based on question type
     if (currentQuestion.type === "normal") {
       isCorrect =
         typeof currentQuestion.answer === "number"
@@ -68,13 +67,12 @@ const NarrativeQuiz: React.FC = () => {
     setShowModal(true);
     setUserAnswer("");
 
-    // Move to the next question
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setModalMessage("Quiz Completed! You have completed the quiz.");
       setShowModal(true);
-      setCurrentQuestionIndex(0); // Reset to the first question
+      setCurrentQuestionIndex(0); 
     }
   };
 
@@ -205,7 +203,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 60,
     paddingHorizontal: 20,
-    justifyContent: "flex-start", // This ensures content is pushed up to the top
+    justifyContent: "flex-start", 
   },
   title: {
     fontSize: 32,
@@ -241,10 +239,10 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   correctButton: {
-    backgroundColor: "#28A745", // Green for correct answers
+    backgroundColor: "#28A745", 
   },
   incorrectButton: {
-    backgroundColor: "#DC3545", // Red for incorrect answers
+    backgroundColor: "#DC3545",
   },
   buttonText: {
     color: "#FFF",
@@ -273,17 +271,17 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    backgroundColor: "#F2F2F2", // Calm gray for modal background
+    backgroundColor: "#F2F2F2", 
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
     width: "80%",
   },
   modalCorrect: {
-    backgroundColor: "#D4EDDA", // Light green for correct answer modal
+    backgroundColor: "#D4EDDA",
   },
   modalIncorrect: {
-    backgroundColor: "#F8D7DA", // Light red for incorrect answer modal
+    backgroundColor: "#F8D7DA",
   },
   modalMessage: {
     fontSize: 18,

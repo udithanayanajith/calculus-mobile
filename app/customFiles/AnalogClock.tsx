@@ -3,15 +3,15 @@ import { View, StyleSheet } from "react-native";
 import Svg, { Circle, Line, Text as SvgText } from "react-native-svg";
 
 interface AnalogClockProps {
-  time: string; // Expected format "HH:MM"
+  time: string;
 }
 
 const AnalogClock: React.FC<AnalogClockProps> = ({ time }) => {
   const [hours, minutes] = time.split(":").map(Number);
 
   const adjustedHours = hours % 12;
-  const hourAngle = (adjustedHours + minutes / 60) * 30; // 30 degrees per hour
-  const minuteAngle = minutes * 6; // 6 degrees per minute
+  const hourAngle = (adjustedHours + minutes / 60) * 30; 
+  const minuteAngle = minutes * 6; 
 
   const hourHandLength = 55;
   const minuteHandLength = 100;
@@ -27,11 +27,11 @@ const AnalogClock: React.FC<AnalogClockProps> = ({ time }) => {
 
   const renderNumbers = () => {
     const numbers = [];
-    const radius = 90; // Distance from the center to the number positions
+    const radius = 90; 
     for (let i = 1; i <= 12; i++) {
-      const angle = (i * 30 - 90) * (Math.PI / 180); // Convert degrees to radians
-      const x = 125 + radius * Math.cos(angle); // Adjusted for boundary
-      const y = 125 + radius * Math.sin(angle); // Adjusted for boundary
+      const angle = (i * 30 - 90) * (Math.PI / 180); 
+      const x = 125 + radius * Math.cos(angle); 
+      const y = 125 + radius * Math.sin(angle); 
 
       numbers.push(
         <SvgText

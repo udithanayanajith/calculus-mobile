@@ -268,10 +268,10 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       return;
     }
 
-    setIsLoading(true); // Show loader
+    setIsLoading(true); 
 
     try {
-      // Create FormData and append the file
+    
       const formData = new FormData();
       formData.append("file", {
         uri: recordingUri,
@@ -279,8 +279,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
         type: "audio/m4a",
       });
       formData.append("numbers", numbers.join(","));
-
-      // Send the request to the Python API
       const response = await fetch("http://192.168.8.162:5000/transcribe", {
         method: "POST",
         body: formData,
@@ -300,17 +298,15 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       console.error("Error sending data:", error);
       Alert.alert("Error", "Failed to send data to the server");
     } finally {
-      setIsLoading(false); // Hide loader
+      setIsLoading(false); 
     }
   };
 
-  // Calculate percentage
   const calculatePercentage = () => {
     if (!result) return 0;
     return (result.correct_count / result.total_numbers) * 100;
   };
 
-  // Determine grade based on percentage
   const getGrade = () => {
     const percentage = calculatePercentage();
     if (percentage >= 80) return "Good";
@@ -318,7 +314,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
     return "Need to Improve";
   };
 
-  // Get modal color based on grade
   const getModalColor = () => {
     const grade = getGrade();
     switch (grade) {
@@ -343,7 +338,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       <Text style={styles.countDisplay}>Numbers shown: {count}</Text>
 
       <View style={styles.buttonContainer}>
-        {/* Show the "Start" button only when random number generation is not running and recording hasn't started */}
         {!isRandomNumberRunning && !isRecording && (
           <TouchableOpacity
             style={[styles.button, isfinished ? styles.selectedButton : null]}
@@ -357,7 +351,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
           </TouchableOpacity>
         )}
 
-        {/* Show the "Pause/Resume" button when random number generation is running */}
         {isRandomNumberRunning && (
           <TouchableOpacity
             style={[styles.button, isPaused ? styles.selectedButton : null]}
@@ -370,8 +363,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
             />
           </TouchableOpacity>
         )}
-
-        {/* Show the "Play" button after recording is done */}
         {recordingUri && !isRandomNumberRunning && (
           <TouchableOpacity
             style={[styles.button, isPlaying ? styles.selectedButton : null]}
@@ -385,7 +376,6 @@ const RandomNumberVoiceRecorder: React.FC = () => {
           </TouchableOpacity>
         )}
 
-        {/* Show the "Check" button after recording is done */}
         {recordingUri && !isRandomNumberRunning && (
           <TouchableOpacity style={styles.button} onPress={sendToCheck}>
             <Icon name="check" size={50} color="#fff" />
@@ -421,7 +411,7 @@ const RandomNumberVoiceRecorder: React.FC = () => {
           <View
             style={[
               styles.modalView,
-              { backgroundColor: getModalColor() }, // Dynamic background color
+              { backgroundColor: getModalColor() }, 
             ]}
           >
             <Text style={styles.modalText}>

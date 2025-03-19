@@ -39,27 +39,27 @@ export default function Substartion_Teaching_Screen() {
         resizeMode={ResizeMode.CONTAIN}
       />
       <Video
-        ref={videoRef} // Reference for controlling the video
+        ref={videoRef}
         style={styles.video}
-        source={require("../../../assets/videos/subtraction.mp4")} // Ensure this path is correct
+        source={require("../../../assets/videos/subtraction.mp4")}
         useNativeControls
         resizeMode={ResizeMode.CONTAIN}
         isLooping={status.isLooping}
         onPlaybackStatusUpdate={(playbackStatus) =>
           setStatus(playbackStatus as any)
-        } // Update status
+        }
       />
       <View style={styles.buttons}>
         <Icon
           name={isPlay ? "pause-circle" : "play-circle"}
-          size={60} // Increase icon size
-          color="#007BFF" // Add a color for better visibility
+          size={60}
+          color="#007BFF"
           onPress={togglePlay}
         />
         <Icon
           name="repeat"
-          size={60} // Increase icon size
-          color={status.isLooping ? "#28a745" : "#6c757d"} // Change color based on looping status
+          size={60}
+          color={status.isLooping ? "#28a745" : "#6c757d"}
           onPress={toggleLooping}
         />
       </View>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   video: {
     width: "100%",
-    height: 300, // Adjust to your preferred size
+    height: 300,
     backgroundColor: "#000",
     marginTop: "-5%",
   },
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", // Automatically push it to the bottom of the screen
-    marginBottom: 20, // Add some space from the bottom
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", // Fix at the bottom
-    bottom: 10, // Distance from the bottom of the screen
+    position: "absolute",
+    bottom: 10,
   },
   buttons: {
     marginTop: 16,
@@ -118,10 +118,10 @@ const styles = StyleSheet.create({
   },
   coverImg: {
     alignSelf: "center",
-    width: "80%", // Full width of the container
-    height: "30%", // Allow height to adjust based on aspect ratio
-    aspectRatio: 16 / 9, // Maintain aspect ratio (adjust this based on your image dimensions)
+    width: "80%",
+    height: "30%",
+    aspectRatio: 16 / 9,
     marginBottom: 2,
-    marginTop: "-40%", // Add some spacing from the video
+    marginTop: "-40%",
   },
 });
