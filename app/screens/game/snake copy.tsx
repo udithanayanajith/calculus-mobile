@@ -370,12 +370,12 @@ const Snake = () => {
                         {
                           rotate:
                             direction === "RIGHT"
-                              ? "270deg"
+                              ? "0deg"
                               : direction === "LEFT"
-                              ? "-270deg"
-                              : direction === "UP"
                               ? "180deg"
-                              : "-0deg",
+                              : direction === "UP"
+                              ? "270deg"
+                              : "90deg",
                         },
                       ],
                     }}

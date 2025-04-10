@@ -16,6 +16,7 @@ import {
   useNavigation,
 } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { baseUrl } from "@/app/customFiles/BASEURL";
 
 const RandomNumberVoiceRecorder: React.FC = () => {
   const params = useGlobalSearchParams();
@@ -268,10 +269,9 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       return;
     }
 
-    setIsLoading(true); 
+    setIsLoading(true);
 
     try {
-    
       const formData = new FormData();
       formData.append("file", {
         uri: recordingUri,
@@ -279,7 +279,7 @@ const RandomNumberVoiceRecorder: React.FC = () => {
         type: "audio/m4a",
       });
       formData.append("numbers", numbers.join(","));
-      const response = await fetch("http://192.168.8.162:5000/transcribe", {
+      const response = await fetch(`${baseUrl}/transcribe`, {
         method: "POST",
         body: formData,
         headers: {
@@ -298,7 +298,7 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       console.error("Error sending data:", error);
       Alert.alert("Error", "Failed to send data to the server");
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
@@ -409,10 +409,7 @@ const RandomNumberVoiceRecorder: React.FC = () => {
       >
         <View style={styles.centeredView}>
           <View
-            style={[
-              styles.modalView,
-              { backgroundColor: getModalColor() }, 
-            ]}
+            style={[styles.modalView, { backgroundColor: getModalColor() }]}
           >
             <Text style={styles.modalText}>
               Correctly Spoken Numbers: {result?.correct_count}

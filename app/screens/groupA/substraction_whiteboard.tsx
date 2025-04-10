@@ -1,3 +1,4 @@
+import { baseUrl } from "@/app/customFiles/BASEURL";
 import { router } from "expo-router";
 import React, { useState, useRef } from "react";
 import {
@@ -44,7 +45,7 @@ const SubstractionQuizScreen: React.FC = () => {
         name: "digit.jpg",
       });
 
-      const response = await fetch("http://192.168.8.162:5000/digit/predict", {
+      const response = await fetch(`${baseUrl}/digit/predict`, {
         method: "POST",
         body: formData,
         headers: {
