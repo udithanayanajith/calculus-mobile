@@ -7,17 +7,20 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  ImageBackground,
+  Image,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { FIREBASE_AUTH } from "../customFiles/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setAuthState } from "../customFiles/authUtils";
+import { ResizeMode } from "expo-av";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false); // State for loader
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const auth = FIREBASE_AUTH;
 
@@ -66,63 +69,85 @@ export default function SignUp() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Create Account</Text>
+    <ImageBackground
+      source={require("../../assets/images/smart_answers.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Image
+          style={styles.coverImg}
+          source={require("../../assets/images/logo.png")}
+          resizeMode={ResizeMode.CONTAIN}
+        />
+        <Text style={styles.heading}>Create Account</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#888"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#888"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="#888"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#888"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        placeholderTextColor="#888"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          placeholderTextColor="#888"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
 
-      {loading ? (
-        <ActivityIndicator size="large" color="#007bff" />
-      ) : (
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-      )}
+        {loading ? (
+          <ActivityIndicator size="large" color="#007bff" />
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+        )}
 
-      <Text style={styles.footer}>
-        Already have an account?{" "}
-        <Text style={styles.link} onPress={() => router.push("/")}>
-          Login
+        <Text style={styles.footer}>
+          Already have an account?{" "}
+          <Text style={styles.link} onPress={() => router.push("/")}>
+            Login
+          </Text>
         </Text>
-      </Text>
-    </View>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#E0E8F9",
-    justifyContent: "center",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
+    paddingTop: 60,
     paddingHorizontal: 20,
-    paddingTop: 50,
+  },
+  coverImg: {
+    alignSelf: "center",
+    width: "80%",
+    height: "30%",
+    aspectRatio: 16 / 9,
+    marginBottom: 2,
   },
   heading: {
     fontSize: 30,
@@ -159,8 +184,11 @@ const styles = StyleSheet.create({
   footer: {
     color: "#718096",
     fontSize: 14,
-    marginTop: 30,
+    margin: 30,
+    padding: 5,
     textAlign: "center",
+    backgroundColor: "#fff",
+    borderRadius: 8,
   },
   link: {
     color: "#4A90E2",

@@ -25,7 +25,7 @@ export default function Index() {
 
   const handleLogin = async () => {
     setLoading(true);
-    router.push("/screens/home");
+
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       if (response) {
