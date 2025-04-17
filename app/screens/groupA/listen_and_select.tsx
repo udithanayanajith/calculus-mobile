@@ -6,10 +6,16 @@ import {
   StyleSheet,
   FlatList,
   Modal,
+  ImageBackground,
+  Dimensions,
+  Platform,
+  SafeAreaView,
 } from "react-native";
 import * as Speech from "expo-speech";
 import { router, useNavigation } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome";
+
+const { width, height } = Dimensions.get("window");
 
 const NumberQuizScreen: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
@@ -59,9 +65,9 @@ const NumberQuizScreen: React.FC = () => {
   const speakNumber = (number: number) => {
     if (quizStarted) {
       Speech.speak(`Select the number ${number}`, {
-        rate: 0.95, 
-        language: "en-US", 
-        pitch: 1.0, 
+        rate: 0.95,
+        language: "en-US",
+        pitch: 1.0,
       });
     }
   };
@@ -113,142 +119,160 @@ const NumberQuizScreen: React.FC = () => {
   const handleBackButtonPress = () => {
     Speech.stop();
     resetQuiz();
-    router.push("/screens/group_A_Home"); 
+    router.push("/screens/group_A_Home");
   };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        Question {quizStarted ? currentQuestion + 1 : 0} of {questions.length}
-      </Text>
-
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.controlButton}
-          onPress={() => setQuizStarted((prev) => !prev)}
-        >
-          <Text style={styles.controlButtonText}>
-            {quizStarted ? "Pause Quiz" : "Start Quiz"}
+    <ImageBackground
+      source={require("../../../assets/images/smart_answers.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            Question {quizStarted ? currentQuestion + 1 : 0} of{" "}
+            {questions.length}
           </Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.controlButton}
-          onPress={() => speakNumber(correctAnswer)}
-          disabled={!quizStarted}
-        >
-          <Text style={styles.controlButtonText}>Repeat Sound</Text>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={styles.controlButton}
+              onPress={() => setQuizStarted((prev) => !prev)}
+            >
+              <Text style={styles.controlButtonText}>
+                {quizStarted ? "Pause Quiz" : "Start Quiz"}
+              </Text>
+            </TouchableOpacity>
 
-      {!quizStarted && (
-        <View style={styles.quizBox}>
-          <Text style={styles.quizText}>Start the quiz to see options</Text>
-        </View>
-      )}
-
-      {quizStarted && (
-        <View style={styles.quizContainer}>
-          <FlatList
-            data={currentOptions}
-            keyExtractor={(item, index) => index.toString()}
-            contentContainerStyle={styles.flatListContainer}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={[
-                  styles.option,
-                  selectedAnswer === item &&
-                    item === correctAnswer &&
-                    styles.correctOption,
-                  selectedAnswer === item &&
-                    item !== correctAnswer &&
-                    styles.wrongOption,
-                ]}
-                onPress={() => handleAnswer(item)}
-                disabled={selectedAnswer !== null}
-              >
-                <Text style={styles.optionText}>{item}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      )}
-
-      <Modal visible={showScoreModal} transparent animationType="slide">
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Quiz Completed!</Text>
-            <Text style={styles.modalScore}>
-              Correct: {correctPercentage}%{`\n`}
-              Grade: {grade}
-            </Text>
-            <TouchableOpacity onPress={resetQuiz}>
-                         <Icon name="repeat" size={30} color="#4A5568" />
+            <TouchableOpacity
+              style={styles.controlButton}
+              onPress={() => speakNumber(correctAnswer)}
+              disabled={!quizStarted}
+            >
+              <Text style={styles.controlButtonText}>Repeat Sound</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </Modal>
 
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={handleBackButtonPress}
-      >
-        <Text style={styles.buttonText}>Back</Text>
-      </TouchableOpacity>
-    </View>
+          {!quizStarted && (
+            <View style={styles.quizBox}>
+              <Text style={styles.quizText}>Start the quiz to see options</Text>
+            </View>
+          )}
+
+          {quizStarted && (
+            <View style={styles.quizContainer}>
+              <FlatList
+                data={currentOptions}
+                keyExtractor={(item, index) => index.toString()}
+                contentContainerStyle={styles.flatListContainer}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={[
+                      styles.option,
+                      selectedAnswer === item &&
+                        item === correctAnswer &&
+                        styles.correctOption,
+                      selectedAnswer === item &&
+                        item !== correctAnswer &&
+                        styles.wrongOption,
+                    ]}
+                    onPress={() => handleAnswer(item)}
+                    disabled={selectedAnswer !== null}
+                  >
+                    <Text style={styles.optionText}>{item}</Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+          )}
+
+          <Modal visible={showScoreModal} transparent animationType="slide">
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>Quiz Completed!</Text>
+                <Text style={styles.modalScore}>
+                  Correct: {correctPercentage}%{`\n`}
+                  Grade: {grade}
+                </Text>
+                <TouchableOpacity onPress={resetQuiz}>
+                  <Icon name="repeat" size={30} color="#4A5568" />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={handleBackButtonPress}
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
+  },
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#F3F4F6",
-    paddingTop: 40,
-    paddingHorizontal: 20,
-    justifyContent: "space-between",
+    paddingTop: Platform.OS === "android" ? height * 0.05 : 0,
+    paddingHorizontal: width * 0.05,
+    alignItems: "center",
   },
   title: {
-    fontSize: 26,
+    fontSize: width * 0.06,
     fontWeight: "bold",
     color: "#4A5568",
-    marginBottom: 20,
+    marginBottom: height * 0.02,
     textAlign: "center",
   },
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: 20,
+    width: "100%",
+    marginBottom: height * 0.02,
   },
   controlButton: {
     backgroundColor: "#7F1D1D",
-    paddingVertical: 15,
-    paddingHorizontal: 25,
+    paddingVertical: height * 0.015,
+    paddingHorizontal: width * 0.05,
     borderRadius: 12,
-    marginVertical: 10,
+    marginVertical: height * 0.01,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
-    width: "40%",
+    width: width * 0.4,
   },
   controlButtonText: {
     color: "#F7FAFC",
-    fontSize: 18,
+    fontSize: width * 0.04,
     fontWeight: "bold",
-
-    marginTop: 10,
   },
   quizBox: {
     backgroundColor: "#FFFFFF",
-    padding: 30,
+    padding: width * 0.07,
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "#E2E8F0",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
-    height: 200,
+    marginTop: height * 0.02,
+    height: height * 0.25,
+    width: width * 0.9,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -256,17 +280,19 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   quizText: {
-    fontSize: 20,
+    fontSize: width * 0.045,
     color: "#718096",
+    textAlign: "center",
   },
   quizContainer: {
     flex: 1,
+    width: "100%",
     justifyContent: "center",
-    marginTop: 8,
+    marginTop: height * 0.01,
   },
   option: {
-    padding: 20, 
-    marginVertical: 10,
+    padding: height * 0.02,
+    marginVertical: height * 0.01,
     borderRadius: 10,
     backgroundColor: "#FFFFFF",
     borderWidth: 2,
@@ -280,7 +306,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   optionText: {
-    fontSize: 24,
+    fontSize: width * 0.06,
     color: "#2D3748",
   },
   correctOption: {
@@ -292,9 +318,7 @@ const styles = StyleSheet.create({
     borderColor: "#C53030",
   },
   flatListContainer: {
-    width: "80%",
-    marginLeft: "10%",
-    marginTop: "-3%",
+    width: "100%",
   },
   modalContainer: {
     flex: 1,
@@ -304,34 +328,36 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: "#FFFFFF",
-    padding: 40,
+    padding: width * 0.1,
     borderRadius: 15,
-    width: "80%",
+    width: width * 0.8,
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 26,
+    fontSize: width * 0.06,
     fontWeight: "bold",
     color: "#4A5568",
+    marginBottom: height * 0.02,
   },
   modalScore: {
-    fontSize: 20,
+    fontSize: width * 0.05,
     color: "#2D3748",
-    marginVertical: 10,
+    marginVertical: height * 0.01,
     textAlign: "center",
   },
   backButton: {
-    padding: 15,
+    padding: height * 0.015,
     backgroundColor: "red",
     borderRadius: 10,
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: height * 0.02,
+    width: width * 0.7,
     alignSelf: "center",
-    width: "70%",
   },
   buttonText: {
     color: "#F7FAFC",
-    fontSize: 18,
+    fontSize: width * 0.045,
+    fontWeight: "bold",
   },
 });
 

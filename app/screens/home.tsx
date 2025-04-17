@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
   Image,
+  ImageBackground,
 } from "react-native";
 import { clearAuthState } from "../customFiles/authUtils";
 
@@ -55,48 +56,58 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../../assets/images/welcome.png")}
-        style={styles.coverBanner}
-        resizeMode="contain"
-      />
-      <Text style={styles.title}>Welcome to Dr.Calculus!</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleGroup_A_ButtonPress}
-      >
-        <Text style={styles.buttonText}>Grade (1-3)</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleGroup_B_ButtonPress}
-      >
-        <Text style={styles.buttonText}>Grade (4-5)</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleGroup_Gamne_ButtonPress}
-      >
-        <Text style={styles.buttonText}>Snake Game</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleLogoutButtonPress}
-      >
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={require("../../assets/images/home_back.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Image
+          source={require("../../assets/images/welcome.png")}
+          style={styles.coverBanner}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>Welcome to Dr.Calculus!</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleGroup_A_ButtonPress}
+        >
+          <Text style={styles.buttonText}>Grade (1-3)</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleGroup_B_ButtonPress}
+        >
+          <Text style={styles.buttonText}>Grade (4-5)</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleGroup_Gamne_ButtonPress}
+        >
+          <Text style={styles.buttonText}>Snake Game</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleLogoutButtonPress}
+        >
+          <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#E0E8F9",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    justifyContent: "center",
   },
   coverImg: {
     width: "100%",

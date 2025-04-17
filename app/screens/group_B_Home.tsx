@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ImageBackground,
 } from "react-native";
 
 export default function Group_B_HomeScreen() {
@@ -57,47 +58,57 @@ export default function Group_B_HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image style={styles.coverImg} source={images[imageIndex]} />
-      <Text style={styles.title}>Welcome to Cr.Calculus!</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleMathOperationButtonPress}
-      >
-        <Text style={styles.buttonText}>Math Operations 0-500</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleTeachTimeButtonPress}
-      >
-        <Text style={styles.buttonText}>Teach Time</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleQuizButtonPress}>
-        <Text style={styles.buttonText}>Quiz</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleNarativeLearnButtonPress}
-      >
-        <Text style={styles.buttonText}>Listen And Answer </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleHomeButtonPress}
-      >
-        <Text style={styles.buttonText}>Home</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={require("../../assets/images/home_back.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Image style={styles.coverImg} source={images[imageIndex]} />
+        <Text style={styles.title}>Welcome to Cr.Calculus!</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleMathOperationButtonPress}
+        >
+          <Text style={styles.buttonText}>Math Operations 0-500</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleTeachTimeButtonPress}
+        >
+          <Text style={styles.buttonText}>Teach Time</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleQuizButtonPress}>
+          <Text style={styles.buttonText}>Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleNarativeLearnButtonPress}
+        >
+          <Text style={styles.buttonText}>Listen And Answer </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleHomeButtonPress}
+        >
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#E0E8F9",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    justifyContent: "center",
   },
   coverImg: {
     alignSelf: "center",
@@ -134,8 +145,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", 
-    marginBottom: 20, 
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -143,7 +154,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", 
+    position: "absolute",
     bottom: 10,
   },
   buttonText: {

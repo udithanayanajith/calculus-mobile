@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import * as Speech from "expo-speech";
 import { useRouter, useNavigation } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const NumberCountScreen: React.FC = () => {
@@ -98,73 +104,87 @@ const NumberCountScreen: React.FC = () => {
   };
 
   return (
-    <LinearGradient colors={["#F0F4FF", "#D0E4FF"]} style={styles.container}>
-      <Text style={styles.title}>Learn to Count</Text>
-      <View style={styles.rangeContainer}>
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Start:</Text>
+    <ImageBackground
+      source={require("../../../assets/images/learn_to_count.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Learn to Count</Text>
+        <View style={styles.rangeContainer}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Start:</Text>
+            <TouchableOpacity
+              style={styles.numberButton}
+              onPress={() => setStart((prev) => Math.max(0, prev - 1))}
+            >
+              <Text style={styles.buttonText}>-</Text>
+            </TouchableOpacity>
+            <Text style={styles.number}>{start}</Text>
+            <TouchableOpacity
+              style={styles.numberButton}
+              onPress={() => setStart((prev) => Math.min(prev + 1, end))}
+            >
+              <Text style={styles.buttonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>End:</Text>
+            <TouchableOpacity
+              style={styles.numberButton}
+              onPress={() => setEnd((prev) => Math.max(start, prev - 1))}
+            >
+              <Text style={styles.buttonText}>-</Text>
+            </TouchableOpacity>
+            <Text style={styles.number}>{end}</Text>
+            <TouchableOpacity
+              style={styles.numberButton}
+              onPress={() => setEnd((prev) => Math.min(prev + 1, 50))}
+            >
+              <Text style={styles.buttonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Button title="Start" onPress={handleStart} />
+        <View style={styles.displayContainer}>
+          <Text style={styles.numberDisplay}>{current}</Text>
+        </View>
+        <View style={styles.controls}>
           <TouchableOpacity
-            style={styles.numberButton}
-            onPress={() => setStart((prev) => Math.max(0, prev - 1))}
+            style={styles.controlButton}
+            onPress={handlePrevious}
           >
-            <Text style={styles.buttonText}>-</Text>
+            <Icon name="arrow-left" size={24} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.number}>{start}</Text>
-          <TouchableOpacity
-            style={styles.numberButton}
-            onPress={() => setStart((prev) => Math.min(prev + 1, end))}
-          >
-            <Text style={styles.buttonText}>+</Text>
+          <TouchableOpacity style={styles.controlButton} onPress={handleRepeat}>
+            <Icon name="repeat" size={24} color="#fff" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.controlButton} onPress={handleNext}>
+            <Icon name="arrow-right" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>End:</Text>
-          <TouchableOpacity
-            style={styles.numberButton}
-            onPress={() => setEnd((prev) => Math.max(start, prev - 1))}
-          >
-            <Text style={styles.buttonText}>-</Text>
-          </TouchableOpacity>
-          <Text style={styles.number}>{end}</Text>
-          <TouchableOpacity
-            style={styles.numberButton}
-            onPress={() => setEnd((prev) => Math.min(prev + 1, 50))}
-          >
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <Button title="Start" onPress={handleStart} />
-      <View style={styles.displayContainer}>
-        <Text style={styles.numberDisplay}>{current}</Text>
-      </View>
-      <View style={styles.controls}>
-        <TouchableOpacity style={styles.controlButton} onPress={handlePrevious}>
-          <Icon name="arrow-left" size={24} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.controlButton} onPress={handleRepeat}>
-          <Icon name="repeat" size={24} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.controlButton} onPress={handleNext}>
-          <Icon name="arrow-right" size={24} color="#fff" />
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleHomeButtonPress}
+        >
+          <Text style={styles.buttonText}>Menu</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleHomeButtonPress}
-      >
-        <Text style={styles.buttonText}>Menu</Text>
-      </TouchableOpacity>
-    </LinearGradient>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#FFFAE6",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    paddingTop: 10,
+    paddingTop: 60,
     paddingHorizontal: 20,
   },
   title: {
@@ -234,8 +254,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", 
-    marginBottom: 20, 
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -243,7 +263,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", 
+    position: "absolute",
     bottom: 10,
   },
   controlText: {

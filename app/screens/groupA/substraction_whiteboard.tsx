@@ -207,12 +207,17 @@ const SubstractionQuizScreen: React.FC = () => {
 export default SubstractionQuizScreen;
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#e8f0fe",
-    justifyContent: "center",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    padding: 20,
+    paddingTop: 60,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 32,

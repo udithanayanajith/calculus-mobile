@@ -104,6 +104,9 @@ const AdditionQuizScreen: React.FC = () => {
       setGrade("Try Again");
     }
   };
+  const handleCloseResultModal = () => {
+    setIsResultModalVisible(false);
+  };
 
   const handleCloseModal = () => {
     setIsQuizComplete(false);
@@ -151,7 +154,7 @@ const AdditionQuizScreen: React.FC = () => {
         </View>
       )}
 
-      {/* <Modal
+      <Modal
         visible={isResultModalVisible}
         transparent={true}
         animationType="slide"
@@ -174,7 +177,7 @@ const AdditionQuizScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal> */}
+      </Modal>
 
       <Modal visible={isQuizComplete} transparent={true} animationType="slide">
         <View style={styles.modalContainer}>
@@ -203,12 +206,17 @@ const AdditionQuizScreen: React.FC = () => {
 export default AdditionQuizScreen;
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#e8f0fe",
-    justifyContent: "center",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    padding: 20,
+    paddingTop: 60,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 32,

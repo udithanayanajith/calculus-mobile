@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
+  ImageBackground,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import AnalogClock from "../../customFiles/AnalogClock";
@@ -90,129 +91,139 @@ const TimeQuizScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Select Time!</Text>
-      <View style={styles.clock}>
-        <AnalogClock time={correctAnswer} />
-      </View>
+    <ImageBackground
+      source={require("../../../assets/images/time_back.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Select Time!</Text>
+        <View style={styles.clock}>
+          <AnalogClock time={correctAnswer} />
+        </View>
 
-      <View style={styles.pickerContainer}>
-        <DropDownPicker
-          open={openHourDropdown}
-          setOpen={setOpenHourDropdown}
-          value={selectedHour}
-          setValue={setSelectedHour}
-          items={[...Array(12)].map((_, index) => ({
-            label: `${index + 1}`,
-            value: `${index + 1}`,
-          }))}
-          containerStyle={styles.dropdown}
-          placeholder="Hour"
-          zIndex={1000}
-        />
-        <Text style={styles.separator}>:</Text>
-        <DropDownPicker
-          open={openMinuteDropdown}
-          setOpen={setOpenMinuteDropdown}
-          value={selectedMinute}
-          setValue={setSelectedMinute}
-          items={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(
-            (minute) => ({
-              label: `${minute < 10 ? `0${minute}` : minute}`,
-              value: `${minute < 10 ? `0${minute}` : minute}`,
-            })
-          )}
-          containerStyle={styles.dropdown}
-          placeholder="Minute"
-          zIndex={500}
-        />
-      </View>
+        <View style={styles.pickerContainer}>
+          <DropDownPicker
+            open={openHourDropdown}
+            setOpen={setOpenHourDropdown}
+            value={selectedHour}
+            setValue={setSelectedHour}
+            items={[...Array(12)].map((_, index) => ({
+              label: `${index + 1}`,
+              value: `${index + 1}`,
+            }))}
+            containerStyle={styles.dropdown}
+            placeholder="Hour"
+            zIndex={1000}
+          />
+          <Text style={styles.separator}>:</Text>
+          <DropDownPicker
+            open={openMinuteDropdown}
+            setOpen={setOpenMinuteDropdown}
+            value={selectedMinute}
+            setValue={setSelectedMinute}
+            items={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(
+              (minute) => ({
+                label: `${minute < 10 ? `0${minute}` : minute}`,
+                value: `${minute < 10 ? `0${minute}` : minute}`,
+              })
+            )}
+            containerStyle={styles.dropdown}
+            placeholder="Minute"
+            zIndex={500}
+          />
+        </View>
 
-      <TouchableOpacity
-        onPress={handleSubmitAnswer}
-        style={styles.submitButton}
-      >
-        <Text style={styles.submitButtonText}>Submit Answer</Text>
-      </TouchableOpacity>
-
-      {showFeedback && (
-        <Modal
-          transparent={true}
-          visible={showFeedback}
-          animationType="fade"
-          onRequestClose={() => setShowFeedback(false)}
+        <TouchableOpacity
+          onPress={handleSubmitAnswer}
+          style={styles.submitButton}
         >
-          <TouchableOpacity
-            style={styles.feedbackContainer}
-            activeOpacity={1}
-            onPress={() => setShowFeedback(false)}
+          <Text style={styles.submitButtonText}>Submit Answer</Text>
+        </TouchableOpacity>
+
+        {showFeedback && (
+          <Modal
+            transparent={true}
+            visible={showFeedback}
+            animationType="fade"
+            onRequestClose={() => setShowFeedback(false)}
           >
-            <Animated.View
-              style={[styles.feedbackBox, { opacity: feedbackOpacity }]}
+            <TouchableOpacity
+              style={styles.feedbackContainer}
+              activeOpacity={1}
+              onPress={() => setShowFeedback(false)}
             >
-              <Text
-                style={{
-                  color: feedbackMessage.startsWith("Correct")
-                    ? "green"
-                    : "red",
-                  fontSize: 18,
-                  textAlign: "center",
-                }}
+              <Animated.View
+                style={[styles.feedbackBox, { opacity: feedbackOpacity }]}
               >
-                <Icon
-                  name={
-                    feedbackMessage.startsWith("Correct")
-                      ? "check-circle"
-                      : "times-circle"
-                  }
-                  size={30}
-                  color={
-                    feedbackMessage.startsWith("Correct") ? "green" : "red"
-                  }
-                />
-                {"\n"}
-                {feedbackMessage}
-              </Text>
-            </Animated.View>
-          </TouchableOpacity>
-        </Modal>
-      )}
+                <Text
+                  style={{
+                    color: feedbackMessage.startsWith("Correct")
+                      ? "green"
+                      : "red",
+                    fontSize: 18,
+                    textAlign: "center",
+                  }}
+                >
+                  <Icon
+                    name={
+                      feedbackMessage.startsWith("Correct")
+                        ? "check-circle"
+                        : "times-circle"
+                    }
+                    size={30}
+                    color={
+                      feedbackMessage.startsWith("Correct") ? "green" : "red"
+                    }
+                  />
+                  {"\n"}
+                  {feedbackMessage}
+                </Text>
+              </Animated.View>
+            </TouchableOpacity>
+          </Modal>
+        )}
 
-      {showScorePopup && (
-        <Modal
-          transparent={true}
-          visible={showScorePopup}
-          animationType="slide"
-          onRequestClose={() => setShowScorePopup(false)}
-        >
-          <View style={styles.feedbackContainer}>
-            <View style={styles.feedbackBox}>
-              <Text style={{ fontSize: 20 }}>Your Score: {score}/10</Text>
-              <TouchableOpacity onPress={resetQuiz}>
-                <Text style={styles.closeButton}>Close and Restart</Text>
-              </TouchableOpacity>
+        {showScorePopup && (
+          <Modal
+            transparent={true}
+            visible={showScorePopup}
+            animationType="slide"
+            onRequestClose={() => setShowScorePopup(false)}
+          >
+            <View style={styles.feedbackContainer}>
+              <View style={styles.feedbackBox}>
+                <Text style={{ fontSize: 20 }}>Your Score: {score}/10</Text>
+                <TouchableOpacity onPress={resetQuiz}>
+                  <Text style={styles.closeButton}>Close and Restart</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </Modal>
-      )}
+          </Modal>
+        )}
 
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={handleBackButtonPress}
-      >
-        <Text style={styles.buttonText}>Back</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={handleBackButtonPress}
+        >
+          <Text style={styles.buttonText}>Back</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#e8f0fe",
-    justifyContent: "center",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    padding: 20,
+    justifyContent: "center",
   },
   title: {
     fontSize: 32,

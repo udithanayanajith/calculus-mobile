@@ -1,6 +1,12 @@
 import { router } from "expo-router";
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 
 export default function Record_your_counting() {
   const navigateToRecordNumbers = (min: number, max: number) => {
@@ -15,53 +21,64 @@ export default function Record_your_counting() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Select Range Before Count!</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(0, 10)}
-      >
-        <Text style={styles.buttonText}>Count 0-10</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(10, 20)}
-      >
-        <Text style={styles.buttonText}>Count 10-20</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(20, 30)}
-      >
-        <Text style={styles.buttonText}>Count 20-30</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(30, 40)}
-      >
-        <Text style={styles.buttonText}>Count 30-40</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToRecordNumbers(40, 50)}
-      >
-        <Text style={styles.buttonText}>Count 40-50</Text>
-      </TouchableOpacity>
+    <ImageBackground
+      source={require("../../../assets/images/select_range.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Select Range Before Count!</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToRecordNumbers(0, 10)}
+        >
+          <Text style={styles.buttonText}>Count 0-10</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToRecordNumbers(10, 20)}
+        >
+          <Text style={styles.buttonText}>Count 10-20</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToRecordNumbers(20, 30)}
+        >
+          <Text style={styles.buttonText}>Count 20-30</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToRecordNumbers(30, 40)}
+        >
+          <Text style={styles.buttonText}>Count 30-40</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToRecordNumbers(40, 50)}
+        >
+          <Text style={styles.buttonText}>Count 40-50</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleHomeButtonPress}
-      >
-        <Text style={styles.buttonText}>Home</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleHomeButtonPress}
+        >
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#E0E8F9",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
     paddingTop: 60,
     paddingHorizontal: 20,
@@ -101,8 +118,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", 
-    marginBottom: 20, 
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,

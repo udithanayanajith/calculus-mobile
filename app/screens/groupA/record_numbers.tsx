@@ -434,12 +434,17 @@ const RandomNumberVoiceRecorder: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    padding: 20,
-    backgroundColor: "#f0f8ff",
+    paddingTop: 60,
+    paddingHorizontal: 20,
   },
   header: {
     fontSize: 28,

@@ -1,6 +1,14 @@
+import { ResizeMode } from "expo-av";
 import { router } from "expo-router";
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ImageBackground,
+} from "react-native";
 
 export default function Basic_Time_Operation_Screen() {
   const handleBackButtonPress = () => {
@@ -16,42 +24,56 @@ export default function Basic_Time_Operation_Screen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Select Operation!</Text>
+    <ImageBackground
+      source={require("../../../assets/images/time_back.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Image
+          style={styles.coverImg}
+          source={require("../../../assets/images/clock.png")}
+          resizeMode={ResizeMode.CONTAIN}
+        />
+        <Text style={styles.title}>Select Operation!</Text>
 
-      <TouchableOpacity style={styles.button} onPress={timeTeachButtonPress}>
-        <Text style={styles.buttonText}>Learn How To Tell Time </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => tellTimeButtonPress()}
-      >
-        <Text style={styles.buttonText}>Tell Time</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={timeTeachButtonPress}>
+          <Text style={styles.buttonText}>Learn How To Tell Time </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => tellTimeButtonPress()}
+        >
+          <Text style={styles.buttonText}>Tell Time</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={handleBackButtonPress}
-      >
-        <Text style={styles.buttonText}>Back</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={handleBackButtonPress}
+        >
+          <Text style={styles.buttonText}>Back</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#E0E8F9",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    justifyContent: "center",
   },
   coverImg: {
     alignSelf: "center",
     width: "115%",
-    height: "30%",
-    borderWidth: 1,
+    height: "50%",
     bottom: "8%",
     marginBottom: 0,
     overflow: "hidden",

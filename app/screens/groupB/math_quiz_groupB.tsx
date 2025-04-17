@@ -1,6 +1,12 @@
 import { router } from "expo-router";
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 
 export default function Math_Quiz_GroupB() {
   const navigateToQuz = (operator: string) => {
@@ -15,50 +21,60 @@ export default function Math_Quiz_GroupB() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Select Your Math Quiz!</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToQuz("+")}
-      >
-        <Text style={styles.buttonText}>Addition Quiz </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToQuz("-")}
-      >
-        <Text style={styles.buttonText}>Substraction Quiz</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToQuz("/")}
-      >
-        <Text style={styles.buttonText}>Division Quiz</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigateToQuz("*")}
-      >
-        <Text style={styles.buttonText}>Multiplication Quiz</Text>
-      </TouchableOpacity>
+    <ImageBackground
+      source={require("../../../assets/images/math_quiz.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Select Your Math Quiz!</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToQuz("+")}
+        >
+          <Text style={styles.buttonText}>Addition Quiz </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToQuz("-")}
+        >
+          <Text style={styles.buttonText}>Substraction Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToQuz("/")}
+        >
+          <Text style={styles.buttonText}>Division Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigateToQuz("*")}
+        >
+          <Text style={styles.buttonText}>Multiplication Quiz</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleHomeButtonPress}
-      >
-        <Text style={styles.buttonText}>Home</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleHomeButtonPress}
+        >
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#E0E8F9",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    justifyContent: "center",
   },
   coverImg: {
     alignSelf: "center",
@@ -105,7 +121,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     position: "absolute",
-    bottom: 10, 
+    bottom: 10,
   },
   buttonText: {
     color: "#000",

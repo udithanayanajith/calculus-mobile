@@ -2,7 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { ResizeMode, Video } from "expo-av";
 import React, { useState } from "react";
 import { router } from "expo-router";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ImageBackground,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Substartion_Teaching_Screen() {
@@ -32,53 +39,64 @@ export default function Substartion_Teaching_Screen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.coverImg}
-        source={require("../../../assets/images/sub.png")}
-        resizeMode={ResizeMode.CONTAIN}
-      />
-      <Video
-        ref={videoRef}
-        style={styles.video}
-        source={require("../../../assets/videos/subtraction.mp4")}
-        useNativeControls
-        resizeMode={ResizeMode.CONTAIN}
-        isLooping={status.isLooping}
-        onPlaybackStatusUpdate={(playbackStatus) =>
-          setStatus(playbackStatus as any)
-        }
-      />
-      <View style={styles.buttons}>
-        <Icon
-          name={isPlay ? "pause-circle" : "play-circle"}
-          size={60}
-          color="#007BFF"
-          onPress={togglePlay}
+    <ImageBackground
+      source={require("../../../assets/images/add_and_sub_back.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Image
+          style={styles.coverImg}
+          source={require("../../../assets/images/sub.png")}
+          resizeMode={ResizeMode.CONTAIN}
         />
-        <Icon
-          name="repeat"
-          size={60}
-          color={status.isLooping ? "#28a745" : "#6c757d"}
-          onPress={toggleLooping}
+        <Video
+          ref={videoRef}
+          style={styles.video}
+          source={require("../../../assets/videos/subtraction.mp4")}
+          useNativeControls
+          resizeMode={ResizeMode.CONTAIN}
+          isLooping={status.isLooping}
+          onPlaybackStatusUpdate={(playbackStatus) =>
+            setStatus(playbackStatus as any)
+          }
         />
-      </View>
-      <StatusBar style="auto" />
+        <View style={styles.buttons}>
+          <Icon
+            name={isPlay ? "pause-circle" : "play-circle"}
+            size={60}
+            color="#007BFF"
+            onPress={togglePlay}
+          />
+          <Icon
+            name="repeat"
+            size={60}
+            color={status.isLooping ? "#28a745" : "#6c757d"}
+            onPress={toggleLooping}
+          />
+        </View>
+        <StatusBar style="auto" />
 
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={handleBackButtonPress}
-      >
-        <Text style={styles.buttonText}>Back</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={handleBackButtonPress}
+        >
+          <Text style={styles.buttonText}>Back</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
     justifyContent: "center",
   },

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ImageBackground,
 } from "react-native";
 
 export default function Group_A_HomeScreen() {
@@ -59,53 +60,66 @@ export default function Group_A_HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image style={styles.coverImg} source={images[imageIndex]} />
-      <Text style={styles.title}>Welcome to Dr.Calculus!</Text>
-      <TouchableOpacity style={styles.button} onPress={handleCountButtonPress}>
-        <Text style={styles.buttonText}>Count 0-50</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleRecordCountingButtonPress}
-      >
-        <Text style={styles.buttonText}>Record Your Counting</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleMathOperationButtonPress}
-      >
-        <Text style={styles.buttonText}>Learn Basic Math Operations</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleWhiteboardButtonPress}
-      >
-        <Text style={styles.buttonText}>Smart Whiteboard</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleSelectAnswerButtonPress}
-      >
-        <Text style={styles.buttonText}>Smart Answers</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleHomeButtonPress}
-      >
-        <Text style={styles.buttonText}>Home</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={require("../../assets/images/home_back.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Image style={styles.coverImg} source={images[imageIndex]} />
+        <Text style={styles.title}>Welcome to Dr.Calculus!</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleCountButtonPress}
+        >
+          <Text style={styles.buttonText}>Count 0-50</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleRecordCountingButtonPress}
+        >
+          <Text style={styles.buttonText}>Record Your Counting</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleMathOperationButtonPress}
+        >
+          <Text style={styles.buttonText}>Learn Basic Math Operations</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleWhiteboardButtonPress}
+        >
+          <Text style={styles.buttonText}>Smart Whiteboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSelectAnswerButtonPress}
+        >
+          <Text style={styles.buttonText}>Smart Answers</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleHomeButtonPress}
+        >
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#E0E8F9",
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
     alignItems: "center",
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    justifyContent: "center",
   },
   coverImg: {
     alignSelf: "center",
@@ -125,7 +139,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#fff",
-    paddingVertical: 15,
+    paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 10,
     marginBottom: 10,
@@ -143,7 +157,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     borderRadius: 10,
     marginTop: "auto",
-    marginBottom: 20,
+    marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
