@@ -29,8 +29,7 @@ const getRandomFoodPosition = (
   snake: { x: number; y: number }[],
   food: { x: number; y: number }[]
 ) => {
-  const MIN_DISTANCE = 8;
-  const BORDER_MARGIN = 3;
+  const MIN_DISTANCE = 5;
   if (!Array.isArray(snake) || !Array.isArray(food)) {
     throw new Error("The snake and food parameters must be arrays.");
   }
@@ -42,14 +41,8 @@ const getRandomFoodPosition = (
     overlap = false;
     // Generate a new random position for food
     position = {
-      x:
-        Math.floor(
-          Math.random() * ((GAME_WIDTH - 100) / BLOCK_SIZE - 2 * BORDER_MARGIN)
-        ) + BORDER_MARGIN,
-      y:
-        Math.floor(
-          Math.random() * ((GAME_HEIGHT - 100) / BLOCK_SIZE - 2 * BORDER_MARGIN)
-        ) + BORDER_MARGIN,
+      x: Math.floor(Math.random() * ((GAME_WIDTH - 100) / BLOCK_SIZE)),
+      y: Math.floor(Math.random() * ((GAME_HEIGHT - 100) / BLOCK_SIZE)),
     };
 
     // Check if the new position overlaps with any segment of the snake
@@ -365,19 +358,20 @@ const Snake = () => {
                       height: BLOCK_SIZE + 25,
                       justifyContent: "center",
                       alignItems: "center",
-                      zIndex: 2, // Higher than body segments
+                      zIndex: 1, // Higher than body segments
                       transform: [
                         {
                           rotate:
                             direction === "RIGHT"
-                              ? "270deg"
+                              ? "-90deg"
                               : direction === "LEFT"
-                              ? "-270deg"
+                              ? "90deg"
                               : direction === "UP"
                               ? "180deg"
-                              : "-0deg",
+                              : "0deg",
                         },
                       ],
+                      transformOrigin: "center",
                     }}
                   >
                     <Image
@@ -394,13 +388,22 @@ const Snake = () => {
                   <Icon
                     key={i}
                     name="square"
-                    size={BLOCK_SIZE + 5} // Slightly larger body
+                    size={BLOCK_SIZE + 5}
                     color={getColor(i)}
                     style={{
                       position: "absolute",
-                      left: segment.x * BLOCK_SIZE,
-                      top: segment.y * BLOCK_SIZE,
+                      left: segment.x * BLOCK_SIZE + 8,
+                      top:
+                        direction === "RIGHT"
+                          ? (segment.y * (BLOCK_SIZE + BLOCK_SIZE + 1)) / 2
+                          : direction === "LEFT"
+                          ? (segment.y * (BLOCK_SIZE + BLOCK_SIZE + 0.5)) / 2
+                          : direction === "UP"
+                          ? segment.y * BLOCK_SIZE + 3 // Custom UP adjustment
+                          : segment.y * BLOCK_SIZE - 5, // Custom DOWN adjustment
                       zIndex: 1,
+
+                      transformOrigin: "center",
                     }}
                   />
                 )

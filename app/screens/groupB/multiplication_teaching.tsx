@@ -35,19 +35,19 @@ export default function Multiplication_Teaching_Screen() {
     <View style={styles.container}>
       <Image
         style={styles.coverImg}
-        source={require("../../../assets/images/sub.png")}
+        source={require("../../../assets/images/mul.png")}
         resizeMode={ResizeMode.CONTAIN}
       />
       <Video
         ref={videoRef}
         style={styles.video}
-        source={require("../../../assets/videos/subtraction.mp4")} 
+        source={require("../../../assets/videos/subtraction.mp4")}
         useNativeControls
         resizeMode={ResizeMode.CONTAIN}
         isLooping={status.isLooping}
         onPlaybackStatusUpdate={(playbackStatus) =>
           setStatus(playbackStatus as any)
-        } 
+        }
       />
       <View style={styles.buttons}>
         <Icon
@@ -58,8 +58,8 @@ export default function Multiplication_Teaching_Screen() {
         />
         <Icon
           name="repeat"
-          size={60} 
-          color={status.isLooping ? "#28a745" : "#6c757d"} 
+          size={60}
+          color={status.isLooping ? "#28a745" : "#6c757d"}
           onPress={toggleLooping}
         />
       </View>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   video: {
     width: "100%",
-    height: 300, 
+    height: 300,
     backgroundColor: "#000",
     marginTop: "-5%",
   },
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginTop: "auto", 
-    marginBottom: 20, 
+    marginTop: "auto",
+    marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: "90%",
     alignItems: "center",
-    position: "absolute", 
-    bottom: 10, 
+    position: "absolute",
+    bottom: 10,
   },
   buttons: {
     marginTop: 16,
@@ -122,6 +122,6 @@ const styles = StyleSheet.create({
     height: "30%",
     aspectRatio: 16 / 9,
     marginBottom: 2,
-    marginTop: "-20%", 
+    marginTop: "-20%",
   },
 });

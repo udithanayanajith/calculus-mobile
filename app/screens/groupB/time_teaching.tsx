@@ -35,7 +35,7 @@ export default function Time_Teaching_Screen() {
     <View style={styles.container}>
       <Image
         style={styles.coverImg}
-        source={require("../../../assets/images/ad.png")}
+        source={require("../../../assets/images/teach_time.png")}
         resizeMode={ResizeMode.CONTAIN}
       />
       <Video
