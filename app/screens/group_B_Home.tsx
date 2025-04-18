@@ -1,0 +1,165 @@
+import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  BackHandler,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ImageBackground,
+} from "react-native";
+
+export default function Group_B_HomeScreen() {
+  const [imageIndex, setImageIndex] = useState(0);
+  const images: string | any[] = [
+    require("../../assets/images/1.png"),
+    require("../../assets/images/2.png"),
+    require("../../assets/images/3.png"),
+  ];
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 2000);
+
+    const backAction = () => {
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => {
+      clearInterval(intervalId);
+      backHandler.remove();
+    };
+  }, []);
+
+  const handleMathOperationButtonPress = () => {
+    router.push("/screens/groupB/math_operations");
+  };
+
+  const handleNarativeLearnButtonPress = () => {
+    router.push("/screens/groupB/narative_math_quiz");
+  };
+
+  const handleQuizButtonPress = () => {
+    router.push("/screens/groupB/math_quiz_groupB");
+  };
+  const handleTeachTimeButtonPress = () => {
+    router.push("/screens/groupB/time_operations");
+  };
+
+  const handleHomeButtonPress = () => {
+    router.push("/screens/home");
+  };
+
+  return (
+    <ImageBackground
+      source={require("../../assets/images/home_back.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Image style={styles.coverImg} source={images[imageIndex]} />
+        <Text style={styles.title}>Welcome to Cr.Calculus!</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleMathOperationButtonPress}
+        >
+          <Text style={styles.buttonText}>Math Operations 0-500</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleTeachTimeButtonPress}
+        >
+          <Text style={styles.buttonText}>Teach Time</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleQuizButtonPress}>
+          <Text style={styles.buttonText}>Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleNarativeLearnButtonPress}
+        >
+          <Text style={styles.buttonText}>Listen And Answer </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleHomeButtonPress}
+        >
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "rgba(224, 232, 249, 0.7)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  coverImg: {
+    alignSelf: "center",
+    width: "115%",
+    height: "30%",
+    borderWidth: 1,
+    bottom: "8%",
+    marginBottom: 0,
+    overflow: "hidden",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 10,
+    marginTop: -25,
+  },
+  button: {
+    backgroundColor: "#fff",
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+    width: "90%",
+    alignItems: "center",
+  },
+  logoutButton: {
+    backgroundColor: "red",
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    marginTop: "auto",
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+    width: "90%",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 10,
+  },
+  buttonText: {
+    color: "#000",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+});

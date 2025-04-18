@@ -1,0 +1,293 @@
+[
+  {
+    "id": 1,
+    "type": "normal",
+    "story": "A farmer has 125 apples. He buys 200 more. How many does he have now?",
+    "answer": 325
+  },
+  {
+    "id": 2,
+    "type": "normal",
+    "story": "Lily has 150 marbles. She finds 50 more. How many marbles does she have in total?",
+    "answer": 200
+  },
+  {
+    "id": 3,
+    "type": "normal",
+    "story": "Jack read 45 pages of a book on Monday and 30 pages on Tuesday. How many pages did he read altogether?",
+    "answer": 75
+  },
+  {
+    "id": 4,
+    "type": "normal",
+    "story": "A school has 20 classrooms. Each classroom has 15 desks. How many desks are there in total?",
+    "answer": 300
+  },
+  {
+    "id": 5,
+    "type": "normal",
+    "story": "A baker made 100 cookies. He makes 50 more. How many cookies does he have now?",
+    "answer": 150
+  },
+  {
+    "id": 6,
+    "type": "normal",
+    "story": "A family has 3 cats. Each cat has 4 toys. How many toys are there in total?",
+    "answer": 12
+  },
+  {
+    "id": 7,
+    "type": "normal",
+    "story": "A gardener plants 15 flowers in the morning and 25 in the afternoon. How many flowers did he plant in total?",
+    "answer": 40
+  },
+  {
+    "id": 8,
+    "type": "normal",
+    "story": "A toy store sold 30 dolls and then received 50 new dolls. How many dolls does the store have now?",
+    "answer": 50
+  },
+  {
+    "id": 9,
+    "type": "normal",
+    "story": "A train has 100 passengers at the start. 25 more passengers board at the next station. How many passengers are on the train now?",
+    "answer": 125
+  },
+  {
+    "id": 10,
+    "type": "normal",
+    "story": "A library has 300 books. If 50 more books are donated, how many books are there now?",
+    "answer": 350
+  },
+
+  {
+    "id": 11,
+    "type": "normal",
+    "story": "A baker had 300 cookies. He sold 125. How many cookies are left?",
+    "answer": 175
+  },
+  {
+    "id": 12,
+    "type": "normal",
+    "story": "Lily has 150 marbles. She gives 50 to her friend. How many marbles does she have left?",
+    "answer": 100
+  },
+  {
+    "id": 13,
+    "type": "normal",
+    "story": "Tom had 200 dollars. He spent 75 dollars on a toy. How much money does he have left?",
+    "answer": 125
+  },
+  {
+    "id": 14,
+    "type": "normal",
+    "story": "A farmer had 500 apples. He sold 200. How many apples does he have now?",
+    "answer": 300
+  },
+  {
+    "id": 15,
+    "type": "normal",
+    "story": "A school had 250 students. 50 students transferred to another school. How many students remain?",
+    "answer": 200
+  },
+  {
+    "id": 16,
+    "type": "normal",
+    "story": "A library had 1000 books. If 300 books were checked out, how many books are left?",
+    "answer": 700
+  },
+  {
+    "id": 17,
+    "type": "normal",
+    "story": "A toy store had 150 toys. If 40 toys were sold, how many toys are left?",
+    "answer": 110
+  },
+  {
+    "id": 18,
+    "type": "normal",
+    "story": "A pizza place had 80 pizzas. If 25 pizzas were eaten, how many are left?",
+    "answer": 55
+  },
+  {
+    "id": 19,
+    "type": "normal",
+    "story": "A family had 60 cookies. They ate 20. How many cookies are left?",
+    "answer": 40
+  },
+  {
+    "id": 20,
+    "type": "normal",
+    "story": "A doctor had 500 patients. 100 patients were discharged. How many patients are left?",
+    "answer": 400
+  },
+
+  {
+    "id": 21,
+    "type": "normal",
+    "story": "A school has 20 classrooms. Each classroom has 15 desks. How many desks are there in total?",
+    "answer": 300
+  },
+  {
+    "id": 22,
+    "type": "normal",
+    "story": "A gardener plants 5 rows of flowers. Each row has 12 flowers. How many flowers are there in total?",
+    "answer": 60
+  },
+  {
+    "id": 23,
+    "type": "normal",
+    "story": "A box contains 24 chocolates. If you have 3 boxes, how many chocolates do you have?",
+    "answer": 72
+  },
+  {
+    "id": 24,
+    "type": "normal",
+    "story": "A baker makes 12 loaves of bread each day. How many loaves does he make in a week?",
+    "answer": 84
+  },
+  {
+    "id": 25,
+    "type": "normal",
+    "story": "A farmer has 10 cows. Each cow produces 5 gallons of milk per day. How many gallons of milk do they produce in a day?",
+    "answer": 50
+  },
+  {
+    "id": 26,
+    "type": "normal",
+    "story": "A school has 15 students in each class. If there are 4 classes, how many students are there in total?",
+    "answer": 60
+  },
+  {
+    "id": 27,
+    "type": "normal",
+    "story": "A box of pencils contains 10 pencils. If you buy 5 boxes, how many pencils do you have?",
+    "answer": 50
+  },
+  {
+    "id": 28,
+    "type": "normal",
+    "story": "A car travels 60 miles in one hour. How far will it travel in 4 hours?",
+    "answer": 240
+  },
+  {
+    "id": 29,
+    "type": "normal",
+    "story": "A farmer grows 15 rows of corn. Each row has 20 plants. How many corn plants are there in total?",
+    "answer": 300
+  },
+  {
+    "id": 30,
+    "type": "normal",
+    "story": "A pizza is cut into 8 slices. If each slice costs $2, how much do all the slices cost?",
+    "answer": 16
+  },
+
+  {
+    "id": 31,
+    "type": "normal",
+    "story": "A group of 48 children is divided into 6 equal teams. How many children are in each team?",
+    "answer": 8
+  },
+  {
+    "id": 32,
+    "type": "normal",
+    "story": "A baker made 120 cookies. If he packs them into boxes of 10, how many boxes does he need?",
+    "answer": 12
+  },
+  {
+    "id": 33,
+    "type": "normal",
+    "story": "A school has 300 students. If they are divided into 10 classes, how many students are in each class?",
+    "answer": 30
+  },
+  {
+    "id": 34,
+    "type": "normal",
+    "story": "A farmer has 60 apples. If he puts them into bags of 12, how many bags does he need?",
+    "answer": 5
+  },
+  {
+    "id": 35,
+    "type": "normal",
+    "story": "A box contains 36 chocolates. If 9 chocolates are eaten, how many are left for sharing equally among 3 friends?",
+    "answer": 9
+  },
+  {
+    "id": 36,
+    "type": "normal",
+    "story": "A truck can carry 2400 pounds. If each bag weighs 300 pounds, how many bags can the truck carry?",
+    "answer": 8
+  },
+  {
+    "id": 37,
+    "type": "normal",
+    "story": "A pizza is cut into 12 slices. If 4 slices are eaten, how many slices are left?",
+    "answer": 8
+  },
+  {
+    "id": 38,
+    "type": "normal",
+    "story": "A classroom has 40 chairs. If the chairs are arranged in 5 rows, how many chairs are in each row?",
+    "answer": 8
+  },
+  {
+    "id": 39,
+    "type": "normal",
+    "story": "A gardener has 100 seeds. If he plants them in groups of 10, how many groups does he make?",
+    "answer": 10
+  },
+  {
+    "id": 40,
+    "type": "normal",
+    "story": "A library has 240 books. If 12 books are on each shelf, how many shelves are needed?",
+    "answer": 20
+  },
+
+  {
+    "id": 41,
+    "type": "time",
+    "story": "A train departs at 2:30 PM and arrives at 5:45 PM. How long was the journey?",
+    "options": [
+      "3 hours 15 minutes",
+      "3 hours",
+      "2 hours 45 minutes",
+      "4 hours"
+    ],
+    "correctAnswer": "3 hours 15 minutes"
+  },
+  {
+    "id": 42,
+    "type": "time",
+    "story": "A movie starts at 7:15 PM and ends at 9:00 PM. How long is the movie?",
+    "options": [
+      "1 hour 45 minutes",
+      "2 hours",
+      "1 hour 30 minutes",
+      "1 hour 15 minutes"
+    ],
+    "correctAnswer": "1 hour 45 minutes"
+  },
+  {
+    "id": 43,
+    "type": "time",
+
+    "story": "A meeting lasts for 2 hours and starts at 10:00 AM. What time does it end?",
+    "options": ["12:00 PM", "11:00 AM", "1:00 PM", "12:30 PM"],
+    "correctAnswer": "12:00 PM"
+  },
+  {
+    "id": 44,
+    "type": "time",
+    "story": "A train takes 1 hour and 30 minutes to reach its destination. If it leaves at 3:00 PM, what time will it arrive?",
+    "options": ["4:30 PM", "4:00 PM", "5:00 PM", "3:30 PM"],
+    "correctAnswer": "4:30 PM"
+  },
+  {
+    "id": 45,
+    "type": "time",
+
+    "story": "A basketball game lasts 2 hours. If it starts at 5:00 PM, what time does it finish?",
+    "options": ["7:00 PM", "6:30 PM", "6:00 PM", "8:00 PM"],
+    "correctAnswer": "7:00 PM"
+  }
+]
